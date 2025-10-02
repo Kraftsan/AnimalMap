@@ -44,7 +44,130 @@
         "country": "Россия",
         "country_code": "ru"
       }
+    },
+    "55.7558_37.6173": {
+      "region_name_ru": "Москва",
+      "region_name_en": "Moscow City",
+      "timestamp": 1759383404.634153,
+      "address": {
+        "historic": "Московский Кремль и Красная Площадь",
+        "road": "улица Воздвиженка",
+        "quarter": "18",
+        "suburb": "Тверской район",
+        "city": "Москва",
+        "state": "Москва",
+        "ISO3166-2-lvl4": "RU-MOW",
+        "region": "Центральный федеральный округ",
+        "postcode": "103009",
+        "country": "Россия",
+        "country_code": "ru"
+      }
+    },
+    "59.9343_30.3351": {
+      "region_name_ru": "Санкт-Петербург",
+      "region_name_en": "Saint Petersburg",
+      "timestamp": 1759383426.740044,
+      "address": {
+        "road": "Невский проспект",
+        "city_district": "Дворцовый округ",
+        "city": "Санкт-Петербург",
+        "state": "Санкт-Петербург",
+        "ISO3166-2-lvl4": "RU-SPE",
+        "region": "Северо-Западный федеральный округ",
+        "postcode": "191069",
+        "country": "Россия",
+        "country_code": "ru"
+      }
+    },
+    "45.0355_38.9753": {
+      "region_name_ru": "Краснодарский край",
+      "region_name_en": "Krasnodar",
+      "timestamp": 1759383436.830377,
+      "address": {
+        "road": "улица Будённого",
+        "city_district": "Центральный округ",
+        "county": "городской округ Краснодар",
+        "state": "Краснодарский край",
+        "ISO3166-2-lvl4": "RU-KDA",
+        "region": "Южный федеральный округ",
+        "postcode": "350000",
+        "country": "Россия",
+        "country_code": "ru"
+      }
+    },
+    "56.8389_60.6057": {
+      "region_name_ru": "Свердловская область",
+      "region_name_en": "Sverdlovsk",
+      "timestamp": 1759383483.268617,
+      "address": {
+        "historic": "Дом Н.И. Севастьянова",
+        "house_number": "35",
+        "road": "проспект Ленина",
+        "neighbourhood": "Вознесенская горка",
+        "city_district": "Кировский район",
+        "city": "Екатеринбург",
+        "county": "городской округ Екатеринбург",
+        "state": "Свердловская область",
+        "ISO3166-2-lvl4": "RU-SVE",
+        "region": "Уральский федеральный округ",
+        "postcode": "620000",
+        "country": "Россия",
+        "country_code": "ru"
+      }
+    },
+    "54.9833_73.3667": {
+      "region_name_ru": "Омская область",
+      "region_name_en": "Omsk",
+      "timestamp": 1759383493.891199,
+      "address": {
+        "road": "улица Таубе",
+        "city_district": "Центральный административный округ",
+        "city": "Омск",
+        "county": "городской округ Омск",
+        "state": "Омская область",
+        "ISO3166-2-lvl4": "RU-OMS",
+        "region": "Сибирский федеральный округ",
+        "postcode": "644043",
+        "country": "Россия",
+        "country_code": "ru"
+      }
+    },
+    "56.3269_44.0065": {
+      "region_name_ru": "Нижегородская область",
+      "region_name_en": "Nizhny Novgorod",
+      "timestamp": 1759383506.139085,
+      "address": {
+        "road": "площадь Минина и Пожарского",
+        "neighbourhood": "Кремль",
+        "city_district": "Нижегородский район",
+        "city": "Нижний Новгород",
+        "county": "городской округ Нижний Новгород",
+        "state": "Нижегородская область",
+        "ISO3166-2-lvl4": "RU-NIZ",
+        "region": "Приволжский федеральный округ",
+        "postcode": "603600",
+        "country": "Россия",
+        "country_code": "ru"
+      }
+    },
+    "55.7963_49.1088": {
+      "region_name_ru": "Татарстан",
+      "region_name_en": "Tatarstan",
+      "timestamp": 1759383517.691266,
+      "address": {
+        "house_number": "1",
+        "road": "Кремлёвская улица",
+        "city_district": "Вахитовский район",
+        "city": "Казань",
+        "county": "городской округ Казань",
+        "state": "Татарстан",
+        "ISO3166-2-lvl4": "RU-TA",
+        "region": "Приволжский федеральный округ",
+        "postcode": "420111",
+        "country": "Россия",
+        "country_code": "ru"
+      }
     }
   },
-  "last_updated": "2025-10-02T12:49:32.120430"
+  "last_updated": "2025-10-02T14:38:37.691269"
 }

@@ -9,7 +9,37 @@
       "name_ru": "Krasnodar",
       "data_file": "krasnodar.json",
       "last_updated": "2025-10-02T12:46:58.128443"
+    },
+    "Москва": {
+      "name_ru": "Москва",
+      "data_file": "москва.json",
+      "last_updated": "2025-10-02T14:37:06.041806"
+    },
+    "Краснодарский край": {
+      "name_ru": "Краснодарский край",
+      "data_file": "краснодарский край.json",
+      "last_updated": "2025-10-02T14:38:02.661047"
+    },
+    "Нижегородская область": {
+      "name_ru": "Нижегородская область",
+      "data_file": "нижегородская область.json",
+      "last_updated": "2025-10-02T14:38:37.420515"
+    },
+    "Татарстан": {
+      "name_ru": "Татарстан",
+      "data_file": "татарстан.json",
+      "last_updated": "2025-10-02T14:39:39.758933"
+    },
+    "Bryansk": {
+      "name_ru": "Bryansk",
+      "data_file": "bryansk.json",
+      "last_updated": "2025-10-02T14:48:35.609793"
+    },
+    "Crimea": {
+      "name_ru": "Crimea",
+      "data_file": "crimea.json",
+      "last_updated": "2025-10-02T15:30:42.342197"
     }
   },
-  "last_updated": "2025-10-02T12:46:58.128447"
+  "last_updated": "2025-10-02T15:30:42.342202"
 }

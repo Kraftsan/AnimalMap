@@ -14,15 +14,180 @@ class AnimalFinder:
             'Московская': 'Moscow',
             'Ленинградская': 'Leningrad',
             'Краснодарская': 'Krasnodar',
-            'Новосибирская': 'Novosibirsk'
+            'Новосибирская': 'Novosibirsk',
+            'Брянская': 'Bryansk',
+            'Нижегородская': 'Nizhny Novgorod',
+            'Татарстан': 'Tatarstan'
         }
 
     def get_region_by_coordinates(self, latitude, longitude):
         """Определяет регион по координатам"""
-        print(f"📍 Определяем регион для координат: {latitude}, {longitude}")
-        region_ru, region_en = self.data_manager.get_region_by_coordinates(latitude, longitude)
-        print(f"🎯 Найден регион: {region_ru} ({region_en})")
-        return region_ru, region_en
+        return self.data_manager.get_region_by_coordinates(latitude, longitude)
+    2
+    def show_regions_statistics(self):
+        """Показывает статистику по сохраненным регионам"""
+        print("\n📊 СОХРАНЕННЫЕ ДАННЫЕ ПО РЕГИОНАМ:")
+        print("=" * 60)
+
+        # Получаем все регионы из файла ключей
+        all_regions = self.data_manager.get_all_regions()
+
+        if not all_regions:
+            print("❌ Нет сохраненных данных о регионах")
+            return
+
+        print(f"{'Регион':<25} {'Всего':<6} {'Видов':<6} {'Распределение по классам'}")
+        print("-" * 60)
+
+        for region_en, region_info in all_regions.items():
+            # Получаем данные региона
+            region_data = self.data_manager.get_region_data(region_en)
+
+            if region_data:
+                df = pd.DataFrame(region_data)
+                region_name = region_info.get('name_ru', region_en)
+                total = len(region_data)
+                species = df['scientific_name'].nunique()
+
+                # Статистика по классам - безопасный подход
+                class_stats = {}
+                for animal in region_data:
+                    # Используем class_ru если есть, иначе обычный class
+                    animal_class = animal.get('class_ru')
+                    if not animal_class or animal_class == 'Не указано':
+                        animal_class = animal.get('class', 'Не указано')
+
+                    if animal_class and animal_class != 'Не указано':
+                        class_stats[animal_class] = class_stats.get(animal_class, 0) + 1
+
+                # Формируем строку распределения по классам
+                class_dist = []
+                for class_name, count in list(class_stats.items())[:3]:  # Показываем топ-3
+                    short_name = class_name[:12] + '..' if len(class_name) > 12 else class_name
+                    class_dist.append(f"{short_name}:{count}")
+
+                distribution_str = ", ".join(class_dist)
+                if len(class_stats) > 3:
+                    distribution_str += " ..."
+
+                print(f"{region_name:<25} {total:<6} {species:<6} {distribution_str}")
+            else:
+                print(f"{region_info.get('name_ru', region_en):<25} {'-':<6} {'-':<6} нет данных")
+
+    def get_available_regions_list(self):
+        """Получает список регионов, которые можно использовать"""
+        all_regions = self.data_manager.get_all_regions()
+
+        if all_regions:
+            available = []
+            for region_en, region_info in all_regions.items():
+                region_data = self.data_manager.get_region_data(region_en)
+                if region_data and len(region_data) > 0:
+                    available.append(region_info.get('name_ru', region_en))
+            return available
+        else:
+            # Возвращаем регионы, которые мы знаем что работают
+            return ["Krasnodar", "Moscow", "Tatarstan", "Amur", "Bryansk", "Nizhny Novgorod"]
+
+    def analyze_region_improved(self, region_name_ru):
+        """Улучшенный анализ региона с группировкой по классам"""
+        animals = self.get_animals_by_region(region_name_ru)
+
+        if not animals:
+            print(f"❌ Нет данных для региона {region_name_ru}")
+            return
+
+        df = pd.DataFrame(animals)
+
+        print(f"\n{'=' * 60}")
+        print(f"🐾 АНАЛИЗ ЖИВОТНЫХ В {region_name_ru.upper()} ОБЛАСТИ")
+        print(f"{'=' * 60}")
+
+        print(f"\n📊 ОБЩАЯ СТАТИСТИКА:")
+        print(f"Всего находок: {len(animals)}")
+        print(f"Уникальных видов: {df['scientific_name'].nunique()}")
+
+        # Группировка по классам с перечислением видов - безопасный подход
+        class_groups = {}
+        for animal in animals:
+            # Используем class_ru если есть, иначе обычный class
+            class_name = animal.get('class_ru')
+            if not class_name or class_name == 'Не указано':
+                class_name = animal.get('class', 'Не указано')
+
+            if class_name not in class_groups:
+                class_groups[class_name] = []
+            class_groups[class_name].append(animal)
+
+        for class_name, group_animals in class_groups.items():
+            if class_name and class_name != 'Не указано':
+                class_count = len(group_animals)
+                percentage = (class_count / len(animals)) * 100
+
+                print(f"\n📈 {class_name.upper()} - {class_count} ({percentage:.1f}%):")
+
+                # Топ видов в этом классе
+                species_counts = {}
+                for animal in group_animals:
+                    species = animal['scientific_name']
+                    species_counts[species] = species_counts.get(species, 0) + 1
+
+                top_species = sorted(species_counts.items(), key=lambda x: x[1], reverse=True)[:5]
+
+                for i, (species, count) in enumerate(top_species, 1):
+                    # Находим common_name для этого вида
+                    common_name = next(
+                        (a.get('common_name', 'Не указано') for a in group_animals if a['scientific_name'] == species),
+                        'Не указано')
+                    display_name = common_name if common_name != 'Не указано' else species
+                    print(f"   {i}. {display_name} - {count} находок")
+
+    def show_detailed_animal_info_improved(self, animals, count=5):
+        """Улучшенный вывод детальной информации о животных"""
+        print(f"\n🔍 ДЕТАЛЬНАЯ ИНФОРМАЦИЯ О {min(count, len(animals))} ЖИВОТНЫХ:")
+
+        for i, animal in enumerate(animals[:count], 1):
+            # Используем научное название, если нет русского
+            display_name = animal.get('common_name', 'Не указано')
+            if display_name == 'Не указано':
+                display_name = animal['scientific_name']
+
+            print(f"\n{i}. {display_name}")
+            print(f"   Научное название: {animal['scientific_name']}")
+
+            # Выводим таксономию на русском - безопасный подход
+            taxon_info = []
+
+            # Тип
+            phylum = animal.get('phylum_ru', animal.get('phylum', 'Не указано'))
+            if phylum != 'Не указано':
+                taxon_info.append(f"Тип: {phylum}")
+
+            # Класс
+            animal_class = animal.get('class_ru', animal.get('class', 'Не указано'))
+            if animal_class != 'Не указано':
+                taxon_info.append(f"Класс: {animal_class}")
+
+            # Отряд
+            order = animal.get('order_ru', animal.get('order', 'Не указано'))
+            if order != 'Не указано':
+                taxon_info.append(f"Отряд: {order}")
+
+            # Семейство
+            family = animal.get('family_ru', animal.get('family', 'Не указано'))
+            if family != 'Не указано':
+                taxon_info.append(f"Семейство: {family}")
+
+            if taxon_info:
+                print(f"   {' | '.join(taxon_info)}")
+
+            # Дополнительная информация
+            if animal.get('locality') and animal['locality'] != 'Не указано':
+                print(f"   Место: {animal['locality']}")
+            if animal.get('eventDate') and animal['eventDate'] != 'Не указано':
+                # Обрезаем время, если есть
+                date_str = animal['eventDate'].split('T')[0] if 'T' in animal['eventDate'] else animal['eventDate']
+                print(f"   Дата: {date_str}")
 
     def get_animals_by_coordinates(self, latitude, longitude, force_update=False):
         """Получает животных по координатам - пробуем оба метода"""
@@ -119,40 +284,41 @@ class AnimalFinder:
         return animal_regions
 
     def _fetch_from_api(self, region_name_en, region_name_ru):
-        """Получает данные через GBIF API - улучшенные параметры"""
+        """Получает данные через GBIF API - с принудительной фильтрацией животных"""
         base_url = "https://api.gbif.org/v1"
 
-        # Улучшенные параметры запроса для животных
+        # Улучшенные параметры запроса с принудительной фильтрацией
         params_list = [
-            # Основной запрос - строгий фильтр животных
+            # Запрос 1: Только основные классы животных
             {
                 'country': 'RU',
                 'stateProvince': region_name_en,
-                'kingdom': 'Animalia',
-                'hasCoordinate': 'true',  # Только записи с координатами
-                'basisOfRecord': 'HUMAN_OBSERVATION,OBSERVATION',  # Только наблюдения
+                'class': 'Mammalia,Aves,Reptilia,Amphibia,Insecta,Arachnida,Actinopterygii',
+                'hasCoordinate': 'true',
+                'basisOfRecord': 'HUMAN_OBSERVATION,OBSERVATION',
                 'limit': 200
             },
-            # Альтернативный запрос - менее строгий
+            # Запрос 2: Только животные с наблюдениями
             {
                 'country': 'RU',
                 'stateProvince': region_name_en,
                 'kingdom': 'Animalia',
                 'hasCoordinate': 'true',
+                'basisOfRecord': 'HUMAN_OBSERVATION,OBSERVATION',
                 'limit': 200
             },
-            # Запрос по основным классам животных
+            # Запрос 3: Менее строгий фильтр
             {
                 'country': 'RU',
                 'stateProvince': region_name_en,
-                'class': 'Mammalia,Aves,Reptilia,Amphibia,Insecta',
+                'kingdom': 'Animalia',
                 'hasCoordinate': 'true',
                 'limit': 200
             }
         ]
 
         for i, params in enumerate(params_list):
-            print(f"🔗 Попытка {i + 1}: {params}")
+            print(f"🔗 Попытка {i + 1}: class={params.get('class', 'Animalia')}")
 
             # Проверяем кэш для этих параметров
             cached_data = self.data_manager.get_api_cache(params)
@@ -167,7 +333,8 @@ class AnimalFinder:
                     print(f"📊 API вернул {data['count']} записей")
 
                     if data['count'] > 0:
-                        animal_data = self._process_api_response(data.get('results', []))
+                        # Принудительная фильтрация на нашей стороне
+                        animal_data = self._process_api_response_strict(data.get('results', []))
 
                         if animal_data:
                             # Сохраняем в кэш
@@ -175,7 +342,7 @@ class AnimalFinder:
                             print(f"💾 Сохранено в кэш: {len(animal_data)} животных")
                             return animal_data
                         else:
-                            print("⚠️ Записи найдены, но не прошли фильтрацию как животные")
+                            print("⚠️ Записи найдены, но не прошли строгую фильтрацию")
                             # Покажем что именно нашли
                             self._debug_first_records(data.get('results', [])[:3])
                     else:
@@ -188,6 +355,104 @@ class AnimalFinder:
                 print(f"❌ Ошибка при запросе к API: {e}")
 
         return []
+
+    def _process_api_response_strict(self, records):
+        """Строгая фильтрация - принимаем только явных животных"""
+        animal_data = []
+
+        print(f"🔍 Строгая фильтрация {len(records)} записей...")
+
+        for i, record in enumerate(records):
+            kingdom = record.get('kingdom', '').lower()
+            phylum = record.get('phylum', '').lower()
+            class_name = record.get('class', '').lower()
+
+            # СТРОГИЕ критерии для животных
+            is_definitely_animal = (
+                # Точное совпадение царства
+                    kingdom == 'animalia' or
+                    # Основные типы животных
+                    phylum in ['chordata', 'arthropoda', 'mollusca'] or
+                    # Основные классы животных
+                    class_name in [
+                        'mammalia', 'aves', 'reptilia', 'amphibia', 'actinopterygii',
+                        'insecta', 'arachnida', 'gastropoda', 'bivalvia', 'malacostraca'
+                    ]
+            )
+
+            # Явные признаки растений (исключаем)
+            is_definitely_plant = (
+                    kingdom == 'plantae' or
+                    phylum in ['magnoliophyta', 'tracheophyta', 'bryophyta'] or
+                    class_name in ['magnoliopsida', 'liliopsida', 'pinopsida']
+            )
+
+            if is_definitely_plant:
+                continue
+
+            if not is_definitely_animal:
+                continue
+
+            # Если дошли сюда - это животное
+            species_key = record.get('speciesKey')
+            common_name_ru = self._get_russian_common_name(species_key)
+
+            animal_info = {
+                'scientific_name': record.get('scientificName', 'Не указано'),
+                'common_name': common_name_ru,
+                'kingdom': record.get('kingdom', 'Не указано'),
+                'phylum': record.get('phylum', 'Не указано'),
+                'class': record.get('class', 'Не указано'),
+                'order': record.get('order', 'Не указано'),
+                'family': record.get('family', 'Не указано'),
+                'genus': record.get('genus', 'Не указано'),
+                'species': record.get('species', 'Не указано'),
+                'decimalLatitude': record.get('decimalLatitude'),
+                'decimalLongitude': record.get('decimalLongitude'),
+                'locality': record.get('locality', 'Не указано'),
+                'stateProvince': record.get('stateProvince', 'Не указано'),
+                'country': record.get('country', 'Не указано'),
+                'eventDate': record.get('eventDate', 'Не указано'),
+                'basisOfRecord': record.get('basisOfRecord', 'Не указано'),
+                'speciesKey': species_key,
+                'record_id': record.get('key')
+            }
+            animal_data.append(animal_info)
+
+        print(f"✅ После строгой фильтрации: {len(animal_data)} животных")
+        return animal_data
+
+    def get_animals_by_coordinates_radius(self, latitude, longitude, radius_km=50, limit=100):
+        """Поиск животных в радиусе от координат"""
+        print(f"📍 Поиск в радиусе {radius_km} км от {latitude}, {longitude}")
+
+        base_url = "https://api.gbif.org/v1"
+
+        params = {
+            'decimalLatitude': latitude,
+            'decimalLongitude': longitude,
+            'coordinateUncertaintyInMeters': radius_km * 1000,
+            'class': 'Mammalia,Aves,Reptilia,Amphibia,Insecta',
+            'hasCoordinate': 'true',
+            'basisOfRecord': 'HUMAN_OBSERVATION,OBSERVATION',
+            'limit': limit
+        }
+
+        try:
+            response = requests.get(f"{base_url}/occurrence/search", params=params, timeout=30)
+            if response.status_code == 200:
+                data = response.json()
+                print(f"📊 Найдено {data['count']} записей в радиусе {radius_km} км")
+
+                animal_data = self._process_api_response_strict(data.get('results', []))
+                return animal_data
+            else:
+                print(f"❌ Ошибка API: {response.status_code}")
+                return []
+
+        except Exception as e:
+            print(f"❌ Ошибка при поиске по радиусу: {e}")
+            return []
 
     def _debug_first_records(self, records):
         """Показывает детальную информацию о первых записях"""
@@ -303,7 +568,7 @@ class AnimalFinder:
             'country': 'RU',
             'stateProvince': region_name_en,
             'kingdom': 'Animalia',
-            'limit': 300
+            'limit': 1000
         }
 
         # Проверяем кэш
@@ -445,37 +710,36 @@ class AnimalFinder:
 
         return animal_data
 
-    def get_animals_by_coordinates_direct(self, latitude, longitude, radius_km=50, limit=200):
-        """Прямой поиск животных по координатам без определения региона"""
-        print(f"📍 Прямой поиск по координатам: {latitude}, {longitude}")
+    def get_animals_by_coordinates(self, latitude, longitude, force_update=False):
+        """Получает животных по координатам - улучшенная версия"""
+        print(f"📍 Поиск животных для координат: {latitude}, {longitude}")
 
-        base_url = "https://api.gbif.org/v1"
+        # Сначала пробуем определить регион
+        region_ru, region_en = self.get_region_by_coordinates(latitude, longitude)
+        print(f"🎯 Определен регион: {region_ru}")
 
-        params = {
-            'decimalLatitude': latitude,
-            'decimalLongitude': longitude,
-            'coordinateUncertaintyInMeters': radius_km * 1000,
-            'kingdom': 'Animalia',
-            'limit': limit,
-            'hasCoordinate': 'true'
-        }
+        # Пробуем поиск по региону
+        animals_by_region = self.get_animals_by_region(region_ru, force_update)
 
-        try:
-            print(f"🔗 Прямой запрос к API по координатам...")
-            response = requests.get(f"{base_url}/occurrence/search", params=params, timeout=30)
-            if response.status_code == 200:
-                data = response.json()
-                print(f"📊 Прямой поиск вернул {data['count']} записей")
+        if animals_by_region:
+            print(f"✅ Найдено {len(animals_by_region)} животных через регион '{region_ru}'")
+            return animals_by_region
+        else:
+            print(f"❌ Через регион '{region_ru}' не найдено животных")
 
-                animal_data = self._process_api_response(data.get('results', []))
-                return animal_data
+            # Пробуем поиск в радиусе от координат
+            print("🔍 Пробуем поиск в радиусе от координат...")
+            animals_radius = self.get_animals_by_coordinates_radius(latitude, longitude)
+
+            if animals_radius:
+                print(f"✅ Поиск по радиусу нашел {len(animals_radius)} животных")
+                # Сохраняем найденных животных под регионом
+                if region_ru != "Неизвестный регион":
+                    self.data_manager.save_region_data(region_en, region_ru, animals_radius)
+                return animals_radius
             else:
-                print(f"❌ Ошибка прямого поиска: {response.status_code}")
+                print("❌ Все методы не дали результатов")
                 return []
-
-        except Exception as e:
-            print(f"❌ Ошибка при прямом поиске: {e}")
-            return []
 
     def _get_russian_common_name(self, species_key):
         """Получает русское название вида"""
@@ -493,6 +757,37 @@ class AnimalFinder:
             pass
 
         return 'Не указано'
+
+    def test_popular_regions(self):
+        """Тестирует поиск в популярных регионах"""
+        test_coordinates = [
+            (55.7558, 37.6173, "Москва"),  # Москва
+            (59.9343, 30.3351, "Санкт-Петербург"),  # СПб
+            (45.0355, 38.9753, "Краснодар"),  # Краснодар
+            (56.8389, 60.6057, "Екатеринбург"),  # Свердловская
+            (54.9833, 73.3667, "Омск"),  # Омская
+            (56.3269, 44.0065, "Нижний Новгород"),  # Нижегородская
+            (55.7963, 49.1088, "Казань"),  # Татарстан
+        ]
+
+        print("\n🧪 ТЕСТИРОВАНИЕ ПОПУЛЯРНЫХ РЕГИОНОВ:")
+        print("=" * 50)
+
+        for lat, lon, region_name in test_coordinates:
+            print(f"\n📍 Тестируем {region_name} ({lat}, {lon})")
+            animals = self.get_animals_by_coordinates(lat, lon)
+
+            if animals:
+                print(f"✅ УСПЕХ: найдено {len(animals)} животных")
+                # Покажем топ-3
+                df = pd.DataFrame(animals)
+                top_species = df['scientific_name'].value_counts().head(3)
+                for species, count in top_species.items():
+                    common_name = df[df['scientific_name'] == species]['common_name'].iloc[0]
+                    print(
+                        f"   • {species} ({common_name if common_name != 'Не указано' else 'нет названия'}) - {count}")
+            else:
+                print(f"❌ НЕ УДАЛОСЬ: животных не найдено")
 
     def analyze_region(self, region_name_ru):
         """Анализирует данные региона"""
@@ -567,15 +862,18 @@ def main():
     print("🐾 СИСТЕМА ПОИСКА ЖИВОТНЫХ ПО КООРДИНАТАМ")
     print("=" * 50)
 
-    # Сначала покажем доступные регионы
-    print("\n📊 Проверяем регионы с данными о животных...")
-    available_regions = finder.check_available_regions()
+    # Показываем статистику сохраненных регионов
+    finder.show_regions_statistics()
+
+    # Получаем доступные регионы
+    available_regions = finder.get_available_regions_list()
 
     while True:
+        print(f"\n🎯 ДОСТУПНЫЕ РЕГИОНЫ: {', '.join(available_regions)}")
         print("\nВыберите режим:")
         print("1. Поиск по координатам")
         print("2. Поиск по названию региона")
-        print("3. Обновить список регионов")
+        print("3. Обновить статистику регионов")
         print("4. Выход")
 
         choice = input("\nВаш выбор (1-4): ").strip()
@@ -583,8 +881,8 @@ def main():
         if choice == '1':
             # Режим поиска по координатам
             try:
-                lat_input = input("Введите широту (например, 53.0): ").strip().replace(',', '.')
-                lon_input = input("Введите долготу (например, 127.0): ").strip().replace(',', '.')
+                lat_input = input("Введите широту (например, 55.7558): ").strip().replace(',', '.')
+                lon_input = input("Введите долготу (например, 37.6173): ").strip().replace(',', '.')
 
                 lat = float(lat_input)
                 lon = float(lon_input)
@@ -592,32 +890,30 @@ def main():
                 animals = finder.get_animals_by_coordinates(lat, lon)
                 if animals:
                     region_ru, region_en = finder.get_region_by_coordinates(lat, lon)
-                    finder.analyze_region(region_ru)
-                    finder.show_detailed_animal_info(animals)
+                    finder.analyze_region_improved(region_ru)
+                    finder.show_detailed_animal_info_improved(animals)
                 else:
                     print("❌ Не удалось найти животных для данных координат")
-                    print("💡 Попробуйте координаты из регионов с данными (см. список выше)")
 
             except ValueError:
                 print("❌ Ошибка: введите корректные числовые значения координат")
 
         elif choice == '2':
             # Режим поиска по региону
-            print("\n💡 Рекомендуемые регионы:",
-                  [r[0] for r in available_regions if r[3] > 0][:5] if available_regions else "Krasnodar, Amur")
-
+            print(f"\n💡 Доступные регионы: {', '.join(available_regions)}")
             region_input = input("Введите название региона: ").strip()
+
             animals = finder.get_animals_by_region(region_input)
             if animals:
-                finder.analyze_region(region_input)
-                finder.show_detailed_animal_info(animals)
+                finder.analyze_region_improved(region_input)
+                finder.show_detailed_animal_info_improved(animals)
             else:
                 print(f"❌ Не удалось найти животных для региона {region_input}")
-                print("💡 Попробуйте английское название региона")
 
         elif choice == '3':
-            # Обновить список регионов
-            available_regions = finder.check_available_regions()
+            # Обновить статистику
+            finder.show_regions_statistics()
+            available_regions = finder.get_available_regions_list()
 
         elif choice == '4':
             print("👋 До свидания!")

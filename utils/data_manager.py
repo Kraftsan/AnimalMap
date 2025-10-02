@@ -101,6 +101,34 @@ class DataManager:
 
         return "Неизвестный регион", "unknown"
 
+    def get_regions_statistics(self):
+        """Получает статистику по всем сохраненным регионам"""
+        regions_stats = {}
+        all_regions = self.get_all_regions()
+
+        for region_en, region_info in all_regions.items():
+            region_data = self.get_region_data(region_en)
+            if region_data:
+                # Создаем DataFrame для анализа
+                df = pd.DataFrame(region_data)
+
+                # Статистика по классам
+                class_stats = {}
+                for animal_class in df['class_ru'].unique():
+                    if animal_class and animal_class != 'Не указано':
+                        count = len(df[df['class_ru'] == animal_class])
+                        class_stats[animal_class] = count
+
+                regions_stats[region_en] = {
+                    'name_ru': region_info.get('name_ru', region_en),
+                    'total_animals': len(region_data),
+                    'unique_species': df['scientific_name'].nunique(),
+                    'class_distribution': class_stats,
+                    'last_updated': region_info.get('last_updated', 'Неизвестно')
+                }
+
+        return regions_stats
+
     def _translate_region_to_english(self, region_name_ru):
         """Переводит название региона на английский для GBIF"""
         russian_to_english = {

@@ -70,7 +70,35 @@ class TaxonomyTranslator:
             "Cervidae": "Оленевые",
             "Leporidae": "Заячьи",
             "Sciuridae": "Беличьи",
-            "Muridae": "Мышиные"
+            "Muridae": "Мышиные",
+
+            # Русские названия животных
+            "Vulpes vulpes": "Обыкновенная лисица",
+            "Lepus timidus": "Заяц-беляк",
+            "Alces alces": "Лось",
+            "Capreolus pygargus": "Косуля",
+            "Sciurus vulgaris": "Обыкновенная белка",
+            "Ursus arctos": "Бурый медведь",
+            "Canis lupus": "Волк",
+            "Lynx lynx": "Рысь",
+            "Martes zibellina": "Соболь",
+            "Parus major": "Большая синица",
+            "Garrulus glandarius": "Сойка",
+            "Pica pica": "Сорока",
+            "Dendrocopos major": "Большой пёстрый дятел",
+            "Regulus regulus": "Королёк",
+            "Strix uralensis": "Длиннохвостая неясыть",
+            "Milvus migrans": "Чёрный коршун",
+            "Dryocopus martius": "Желна",
+            "Bombycilla garrulus": "Свиристель",
+            "Hyla arborea": "Обыкновенная квакша",
+            "Rana temporaria": "Травяная лягушка",
+            "Emberiza pallasi": "Овсянка Палласа",
+            "Motacilla alba": "Белая трясогузка",
+            "Fringilla coelebs": "Зяблик",
+            "Podiceps cristatus": "Большая поганка",
+            "Chroicocephalus ridibundus": "Озёрная чайка",
+            "Phalacrocorax carbo": "Большой баклан"
         }
 
     def _load_translations(self):

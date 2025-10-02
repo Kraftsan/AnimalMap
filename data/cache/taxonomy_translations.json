@@ -838,5 +838,1393 @@
   "species_Sitta krueperi": {
     "translation": "Sitta krueperi",
     "timestamp": 1759376818.116422
+  },
+  "genus_Lepus": {
+    "translation": "Lepus",
+    "timestamp": 1759383422.315563
+  },
+  "species_Lepus timidus": {
+    "translation": "Lepus timidus",
+    "timestamp": 1759383423.590524
+  },
+  "genus_Alces": {
+    "translation": "Alces",
+    "timestamp": 1759383424.795478
+  },
+  "species_Alces alces": {
+    "translation": "Alces alces",
+    "timestamp": 1759383426.008775
+  },
+  "class_Diplopoda": {
+    "translation": "Diplopoda",
+    "timestamp": 1759383446.215452
+  },
+  "order_Julida": {
+    "translation": "Julida",
+    "timestamp": 1759383447.488456
+  },
+  "family_Julidae": {
+    "translation": "Julidae",
+    "timestamp": 1759383448.871628
+  },
+  "order_Anura": {
+    "translation": "Anura",
+    "timestamp": 1759383450.175288
+  },
+  "family_Hylidae": {
+    "translation": "Hylidae",
+    "timestamp": 1759383451.437445
+  },
+  "genus_Hyla": {
+    "translation": "Hyla",
+    "timestamp": 1759383452.717847
+  },
+  "species_Hyla arborea": {
+    "translation": "Hyla arborea",
+    "timestamp": 1759383453.944352
+  },
+  "order_Stylommatophora": {
+    "translation": "Stylommatophora",
+    "timestamp": 1759383455.351182
+  },
+  "family_Helicidae": {
+    "translation": "Helicidae",
+    "timestamp": 1759383456.629224
+  },
+  "genus_Helix": {
+    "translation": "Helix",
+    "timestamp": 1759383457.95942
+  },
+  "species_Helix pomatia": {
+    "translation": "Helix pomatia",
+    "timestamp": 1759383459.232434
+  },
+  "order_Isopoda": {
+    "translation": "Isopoda",
+    "timestamp": 1759383460.459493
+  },
+  "family_Trachelipodidae": {
+    "translation": "Trachelipodidae",
+    "timestamp": 1759383461.69435
+  },
+  "genus_Trachelipus": {
+    "translation": "Trachelipus",
+    "timestamp": 1759383462.925918
+  },
+  "species_Trachelipus caucasius": {
+    "translation": "Trachelipus caucasius",
+    "timestamp": 1759383464.131701
+  },
+  "genus_Araneus": {
+    "translation": "Araneus",
+    "timestamp": 1759383465.339639
+  },
+  "order_Coleoptera": {
+    "translation": "Coleoptera",
+    "timestamp": 1759383466.592145
+  },
+  "family_Cerambycidae": {
+    "translation": "Cerambycidae",
+    "timestamp": 1759383467.830356
+  },
+  "genus_Aromia": {
+    "translation": "Aromia",
+    "timestamp": 1759383469.061601
+  },
+  "species_Aromia moschata": {
+    "translation": "Aromia moschata",
+    "timestamp": 1759383470.284486
+  },
+  "genus_Cervus": {
+    "translation": "Cervus",
+    "timestamp": 1759383471.505782
+  },
+  "species_Cervus elaphus": {
+    "translation": "Cervus elaphus",
+    "timestamp": 1759383472.741581
+  },
+  "family_Sparassidae": {
+    "translation": "Sparassidae",
+    "timestamp": 1759383473.938338
+  },
+  "genus_Micrommata": {
+    "translation": "Micrommata",
+    "timestamp": 1759383475.128232
+  },
+  "species_Micrommata virescens": {
+    "translation": "Micrommata virescens",
+    "timestamp": 1759383476.393414
+  },
+  "family_Theridiidae": {
+    "translation": "Theridiidae",
+    "timestamp": 1759383477.726242
+  },
+  "genus_Steatoda": {
+    "translation": "Steatoda",
+    "timestamp": 1759383478.957377
+  },
+  "species_Steatoda paykulliana": {
+    "translation": "Steatoda paykulliana",
+    "timestamp": 1759383480.154638
+  },
+  "genus_Araniella": {
+    "translation": "Araniella",
+    "timestamp": 1759383481.418857
+  },
+  "species_Araniella cucurbitina": {
+    "translation": "Araniella cucurbitina",
+    "timestamp": 1759383482.644436
+  },
+  "species_Accipiter gentilis": {
+    "translation": "Accipiter gentilis",
+    "timestamp": 1759383539.185652
+  },
+  "genus_Circus": {
+    "translation": "Circus",
+    "timestamp": 1759383540.407264
+  },
+  "species_Circus cyaneus": {
+    "translation": "Circus cyaneus",
+    "timestamp": 1759383541.621546
+  },
+  "family_Emberizidae": {
+    "translation": "Emberizidae",
+    "timestamp": 1759383542.845377
+  },
+  "genus_Emberiza": {
+    "translation": "Emberiza",
+    "timestamp": 1759383544.059262
+  },
+  "species_Emberiza citrinella": {
+    "translation": "Emberiza citrinella",
+    "timestamp": 1759383545.25692
+  },
+  "family_Haematopodidae": {
+    "translation": "Haematopodidae",
+    "timestamp": 1759383546.448628
+  },
+  "genus_Haematopus": {
+    "translation": "Haematopus",
+    "timestamp": 1759383547.693164
+  },
+  "species_Haematopus ostralegus": {
+    "translation": "Haematopus ostralegus",
+    "timestamp": 1759383548.903491
+  },
+  "genus_Hydrocoloeus": {
+    "translation": "Hydrocoloeus",
+    "timestamp": 1759383550.152176
+  },
+  "species_Hydrocoloeus minutus": {
+    "translation": "Hydrocoloeus minutus",
+    "timestamp": 1759383551.386382
+  },
+  "family_Charadriidae": {
+    "translation": "Charadriidae",
+    "timestamp": 1759383552.589442
+  },
+  "genus_Vanellus": {
+    "translation": "Vanellus",
+    "timestamp": 1759383553.807356
+  },
+  "species_Vanellus gregarius": {
+    "translation": "Vanellus gregarius",
+    "timestamp": 1759383554.997462
+  },
+  "genus_Ficedula": {
+    "translation": "Ficedula",
+    "timestamp": 1759383556.19116
+  },
+  "species_Ficedula albicollis": {
+    "translation": "Ficedula albicollis",
+    "timestamp": 1759383557.403276
+  },
+  "genus_Actitis": {
+    "translation": "Actitis",
+    "timestamp": 1759383558.589448
+  },
+  "species_Actitis hypoleucos": {
+    "translation": "Actitis hypoleucos",
+    "timestamp": 1759383559.774062
+  },
+  "genus_Milvus": {
+    "translation": "Milvus",
+    "timestamp": 1759383560.954365
+  },
+  "species_Milvus migrans": {
+    "translation": "Milvus migrans",
+    "timestamp": 1759383562.135938
+  },
+  "genus_Lyrurus": {
+    "translation": "Lyrurus",
+    "timestamp": 1759383563.334319
+  },
+  "species_Lyrurus tetrix": {
+    "translation": "Lyrurus tetrix",
+    "timestamp": 1759383564.55912
+  },
+  "family_Glareolidae": {
+    "translation": "Glareolidae",
+    "timestamp": 1759383565.886259
+  },
+  "genus_Glareola": {
+    "translation": "Glareola",
+    "timestamp": 1759383567.123438
+  },
+  "species_Glareola nordmanni": {
+    "translation": "Glareola nordmanni",
+    "timestamp": 1759383568.358244
+  },
+  "genus_Chlidonias": {
+    "translation": "Chlidonias",
+    "timestamp": 1759383569.566136
+  },
+  "species_Chlidonias niger": {
+    "translation": "Chlidonias niger",
+    "timestamp": 1759383570.8683
+  },
+  "genus_Pluvialis": {
+    "translation": "Pluvialis",
+    "timestamp": 1759383572.044188
+  },
+  "species_Pluvialis squatarola": {
+    "translation": "Pluvialis squatarola",
+    "timestamp": 1759383573.344861
+  },
+  "genus_Tringa": {
+    "translation": "Tringa",
+    "timestamp": 1759383574.616802
+  },
+  "species_Tringa nebularia": {
+    "translation": "Tringa nebularia",
+    "timestamp": 1759383575.841626
+  },
+  "species_Emberiza schoeniclus": {
+    "translation": "Emberiza schoeniclus",
+    "timestamp": 1759383577.045076
+  },
+  "species_Anas acuta": {
+    "translation": "Anas acuta",
+    "timestamp": 1759383578.519232
+  },
+  "species_Turdus pilaris": {
+    "translation": "Turdus pilaris",
+    "timestamp": 1759383579.75438
+  },
+  "genus_Dendrocoptes": {
+    "translation": "Dendrocoptes",
+    "timestamp": 1759383999.584023
+  },
+  "species_Dendrocoptes medius": {
+    "translation": "Dendrocoptes medius",
+    "timestamp": 1759384000.777169
+  },
+  "family_Carabidae": {
+    "translation": "Carabidae",
+    "timestamp": 1759384002.050924
+  },
+  "genus_Drypta": {
+    "translation": "Drypta",
+    "timestamp": 1759384003.284747
+  },
+  "species_Drypta dentata": {
+    "translation": "Drypta dentata",
+    "timestamp": 1759384004.496909
+  },
+  "genus_Lophophanes": {
+    "translation": "Lophophanes",
+    "timestamp": 1759384005.687896
+  },
+  "species_Lophophanes cristatus": {
+    "translation": "Lophophanes cristatus",
+    "timestamp": 1759384006.965494
+  },
+  "family_Castoridae": {
+    "translation": "Castoridae",
+    "timestamp": 1759384008.139994
+  },
+  "genus_Castor": {
+    "translation": "Castor",
+    "timestamp": 1759384009.378874
+  },
+  "species_Castor fiber": {
+    "translation": "Castor fiber",
+    "timestamp": 1759384010.592749
+  },
+  "order_Opiliones": {
+    "translation": "Opiliones",
+    "timestamp": 1759384011.808181
+  },
+  "family_Phalangiidae": {
+    "translation": "Phalangiidae",
+    "timestamp": 1759384013.084884
+  },
+  "genus_Rilaena": {
+    "translation": "Rilaena",
+    "timestamp": 1759384014.256107
+  },
+  "species_Rilaena triangularis": {
+    "translation": "Rilaena triangularis",
+    "timestamp": 1759384015.442084
+  },
+  "genus_Poecile": {
+    "translation": "Poecile",
+    "timestamp": 1759384016.686948
+  },
+  "species_Poecile palustris": {
+    "translation": "Poecile palustris",
+    "timestamp": 1759384017.929842
+  },
+  "family_Erebidae": {
+    "translation": "Erebidae",
+    "timestamp": 1759384019.158731
+  },
+  "genus_Phragmatobia": {
+    "translation": "Phragmatobia",
+    "timestamp": 1759384020.370707
+  },
+  "species_Phragmatobia fuliginosa": {
+    "translation": "Phragmatobia fuliginosa",
+    "timestamp": 1759384021.609182
+  },
+  "family_Lasiocampidae": {
+    "translation": "Lasiocampidae",
+    "timestamp": 1759384022.834781
+  },
+  "genus_Euthrix": {
+    "translation": "Euthrix",
+    "timestamp": 1759384024.084699
+  },
+  "species_Euthrix potatoria": {
+    "translation": "Euthrix potatoria",
+    "timestamp": 1759384025.272674
+  },
+  "family_Thomisidae": {
+    "translation": "Thomisidae",
+    "timestamp": 1759384026.508863
+  },
+  "genus_Diaea": {
+    "translation": "Diaea",
+    "timestamp": 1759384027.73907
+  },
+  "species_Diaea dorsata": {
+    "translation": "Diaea dorsata",
+    "timestamp": 1759384028.952952
+  },
+  "genus_Vulpes": {
+    "translation": "Vulpes",
+    "timestamp": 1759384030.179896
+  },
+  "species_Vulpes vulpes": {
+    "translation": "Vulpes vulpes",
+    "timestamp": 1759384031.417739
+  },
+  "genus_Hypena": {
+    "translation": "Hypena",
+    "timestamp": 1759384032.656646
+  },
+  "species_Hypena rostralis": {
+    "translation": "Hypena rostralis",
+    "timestamp": 1759384033.838731
+  },
+  "genus_Mangora": {
+    "translation": "Mangora",
+    "timestamp": 1759384035.031703
+  },
+  "species_Mangora acalypha": {
+    "translation": "Mangora acalypha",
+    "timestamp": 1759384036.234849
+  },
+  "family_Gelechiidae": {
+    "translation": "Gelechiidae",
+    "timestamp": 1759384037.475986
+  },
+  "genus_Helcystogramma": {
+    "translation": "Helcystogramma",
+    "timestamp": 1759384038.729925
+  },
+  "species_Helcystogramma triannulella": {
+    "translation": "Helcystogramma triannulella",
+    "timestamp": 1759384039.930569
+  },
+  "genus_Strix": {
+    "translation": "Strix",
+    "timestamp": 1759384041.147314
+  },
+  "species_Strix aluco": {
+    "translation": "Strix aluco",
+    "timestamp": 1759384042.358612
+  },
+  "order_Soricomorpha": {
+    "translation": "Soricomorpha",
+    "timestamp": 1759384043.557768
+  },
+  "family_Talpidae": {
+    "translation": "Talpidae",
+    "timestamp": 1759384044.753928
+  },
+  "genus_Talpa": {
+    "translation": "Talpa",
+    "timestamp": 1759384045.93402
+  },
+  "species_Talpa europaea": {
+    "translation": "Talpa europaea",
+    "timestamp": 1759384047.164899
+  },
+  "genus_Aglais": {
+    "translation": "Aglais",
+    "timestamp": 1759384048.406964
+  },
+  "species_Aglais urticae": {
+    "translation": "Aglais urticae",
+    "timestamp": 1759384049.651472
+  },
+  "species_Poecile montanus": {
+    "translation": "Poecile montanus",
+    "timestamp": 1759384050.90523
+  },
+  "genus_Felis": {
+    "translation": "Felis",
+    "timestamp": 1759384052.113051
+  },
+  "species_Felis catus": {
+    "translation": "Felis catus",
+    "timestamp": 1759384053.364246
+  },
+  "family_Philodromidae": {
+    "translation": "Philodromidae",
+    "timestamp": 1759384054.540787
+  },
+  "genus_Philodromus": {
+    "translation": "Philodromus",
+    "timestamp": 1759384055.778941
+  },
+  "species_Philodromus margaritatus": {
+    "translation": "Philodromus margaritatus",
+    "timestamp": 1759384056.982951
+  },
+  "family_Anyphaenidae": {
+    "translation": "Anyphaenidae",
+    "timestamp": 1759384058.199847
+  },
+  "genus_Anyphaena": {
+    "translation": "Anyphaena",
+    "timestamp": 1759384059.441869
+  },
+  "species_Anyphaena accentuata": {
+    "translation": "Anyphaena accentuata",
+    "timestamp": 1759384060.673963
+  },
+  "species_Turdus viscivorus": {
+    "translation": "Turdus viscivorus",
+    "timestamp": 1759384061.869282
+  },
+  "genus_Dryocopus": {
+    "translation": "Dryocopus",
+    "timestamp": 1759384063.052769
+  },
+  "species_Dryocopus martius": {
+    "translation": "Dryocopus martius",
+    "timestamp": 1759384064.266806
+  },
+  "genus_Nymphalis": {
+    "translation": "Nymphalis",
+    "timestamp": 1759384065.492957
+  },
+  "species_Nymphalis xanthomelas": {
+    "translation": "Nymphalis xanthomelas",
+    "timestamp": 1759384066.696918
+  },
+  "genus_Tetrastes": {
+    "translation": "Tetrastes",
+    "timestamp": 1759384067.908828
+  },
+  "species_Tetrastes bonasia": {
+    "translation": "Tetrastes bonasia",
+    "timestamp": 1759384069.11693
+  },
+  "genus_Capreolus": {
+    "translation": "Capreolus",
+    "timestamp": 1759384070.336486
+  },
+  "species_Capreolus capreolus": {
+    "translation": "Capreolus capreolus",
+    "timestamp": 1759384071.561738
+  },
+  "genus_Coloeus": {
+    "translation": "Coloeus",
+    "timestamp": 1759384072.780927
+  },
+  "species_Coloeus monedula": {
+    "translation": "Coloeus monedula",
+    "timestamp": 1759384074.028027
+  },
+  "genus_Diacrisia": {
+    "translation": "Diacrisia",
+    "timestamp": 1759384075.282053
+  },
+  "species_Diacrisia sannio": {
+    "translation": "Diacrisia sannio",
+    "timestamp": 1759384076.530873
+  },
+  "genus_Pyrrhula": {
+    "translation": "Pyrrhula",
+    "timestamp": 1759384077.764839
+  },
+  "species_Pyrrhula pyrrhula": {
+    "translation": "Pyrrhula pyrrhula",
+    "timestamp": 1759384078.985921
+  },
+  "genus_Spinus": {
+    "translation": "Spinus",
+    "timestamp": 1759384080.193879
+  },
+  "species_Spinus spinus": {
+    "translation": "Spinus spinus",
+    "timestamp": 1759384081.407547
+  },
+  "family_Linyphiidae": {
+    "translation": "Linyphiidae",
+    "timestamp": 1759384083.038332
+  },
+  "genus_Linyphia": {
+    "translation": "Linyphia",
+    "timestamp": 1759384084.222287
+  },
+  "species_Linyphia hortensis": {
+    "translation": "Linyphia hortensis",
+    "timestamp": 1759384085.450346
+  },
+  "species_Aglais io": {
+    "translation": "Aglais io",
+    "timestamp": 1759384086.715731
+  },
+  "species_Lepus europaeus": {
+    "translation": "Lepus europaeus",
+    "timestamp": 1759384087.946771
+  },
+  "genus_Bucephala": {
+    "translation": "Bucephala",
+    "timestamp": 1759384089.163765
+  },
+  "species_Bucephala clangula": {
+    "translation": "Bucephala clangula",
+    "timestamp": 1759384090.341399
+  },
+  "genus_Perdix": {
+    "translation": "Perdix",
+    "timestamp": 1759384091.550782
+  },
+  "species_Perdix perdix": {
+    "translation": "Perdix perdix",
+    "timestamp": 1759384092.716781
+  },
+  "order_Hemiptera": {
+    "translation": "Hemiptera",
+    "timestamp": 1759384093.949552
+  },
+  "family_Pyrrhocoridae": {
+    "translation": "Pyrrhocoridae",
+    "timestamp": 1759384095.155708
+  },
+  "genus_Pyrrhocoris": {
+    "translation": "Pyrrhocoris",
+    "timestamp": 1759384096.372854
+  },
+  "species_Pyrrhocoris apterus": {
+    "translation": "Pyrrhocoris apterus",
+    "timestamp": 1759384097.648851
+  },
+  "family_Staphylinidae": {
+    "translation": "Staphylinidae",
+    "timestamp": 1759384098.969175
+  },
+  "genus_Olophrum": {
+    "translation": "Olophrum",
+    "timestamp": 1759384100.3709
+  },
+  "species_Olophrum assimile": {
+    "translation": "Olophrum assimile",
+    "timestamp": 1759384101.761837
+  },
+  "family_Gracillariidae": {
+    "translation": "Gracillariidae",
+    "timestamp": 1759384103.25568
+  },
+  "genus_Caloptilia": {
+    "translation": "Caloptilia",
+    "timestamp": 1759384104.657888
+  },
+  "species_Caloptilia stigmatella": {
+    "translation": "Caloptilia stigmatella",
+    "timestamp": 1759384105.835758
+  },
+  "family_Lycosidae": {
+    "translation": "Lycosidae",
+    "timestamp": 1759384107.031866
+  },
+  "order_Hymenoptera": {
+    "translation": "Hymenoptera",
+    "timestamp": 1759384108.279777
+  },
+  "family_Cynipidae": {
+    "translation": "Cynipidae",
+    "timestamp": 1759384109.537922
+  },
+  "genus_Biorhiza": {
+    "translation": "Biorhiza",
+    "timestamp": 1759384110.722472
+  },
+  "species_Biorhiza pallida": {
+    "translation": "Biorhiza pallida",
+    "timestamp": 1759384111.976762
+  },
+  "species_Picus canus": {
+    "translation": "Picus canus",
+    "timestamp": 1759384113.215794
+  },
+  "genus_Martes": {
+    "translation": "Martes",
+    "timestamp": 1759384114.395003
+  },
+  "species_Martes martes": {
+    "translation": "Martes martes",
+    "timestamp": 1759384115.584207
+  },
+  "genus_Carpodacus": {
+    "translation": "Carpodacus",
+    "timestamp": 1759384564.615727
+  },
+  "species_Carpodacus sibiricus": {
+    "translation": "Carpodacus sibiricus",
+    "timestamp": 1759384565.872467
+  },
+  "species_Pica serica": {
+    "translation": "Pica serica",
+    "timestamp": 1759384567.105512
+  },
+  "species_Carpodacus roseus": {
+    "translation": "Carpodacus roseus",
+    "timestamp": 1759384568.449078
+  },
+  "species_Capreolus pygargus": {
+    "translation": "Capreolus pygargus",
+    "timestamp": 1759384569.683558
+  },
+  "species_Cyanistes cyanus": {
+    "translation": "Cyanistes cyanus",
+    "timestamp": 1759384570.863491
+  },
+  "species_Strix uralensis": {
+    "translation": "Strix uralensis",
+    "timestamp": 1759384572.090356
+  },
+  "species_Parus cinereus": {
+    "translation": "Parus cinereus",
+    "timestamp": 1759384573.324347
+  },
+  "species_Buteo hemilasius": {
+    "translation": "Buteo hemilasius",
+    "timestamp": 1759384574.579618
+  },
+  "species_Buteo lagopus": {
+    "translation": "Buteo lagopus",
+    "timestamp": 1759384575.851975
+  },
+  "genus_Mustela": {
+    "translation": "Mustela",
+    "timestamp": 1759384577.090117
+  },
+  "species_Mustela sibirica": {
+    "translation": "Mustela sibirica",
+    "timestamp": 1759384578.360681
+  },
+  "genus_Phasianus": {
+    "translation": "Phasianus",
+    "timestamp": 1759384579.640548
+  },
+  "species_Phasianus colchicus": {
+    "translation": "Phasianus colchicus",
+    "timestamp": 1759384580.852878
+  },
+  "genus_Surnia": {
+    "translation": "Surnia",
+    "timestamp": 1759384582.074411
+  },
+  "species_Surnia ulula": {
+    "translation": "Surnia ulula",
+    "timestamp": 1759384583.280448
+  },
+  "genus_Pinicola": {
+    "translation": "Pinicola",
+    "timestamp": 1759384584.505484
+  },
+  "species_Pinicola enucleator": {
+    "translation": "Pinicola enucleator",
+    "timestamp": 1759384585.737368
+  },
+  "species_Corvus macrorhynchos": {
+    "translation": "Corvus macrorhynchos",
+    "timestamp": 1759384586.986476
+  },
+  "genus_Cyanopica": {
+    "translation": "Cyanopica",
+    "timestamp": 1759384588.222442
+  },
+  "species_Cyanopica cyanus": {
+    "translation": "Cyanopica cyanus",
+    "timestamp": 1759384589.421317
+  },
+  "genus_Yungipicus": {
+    "translation": "Yungipicus",
+    "timestamp": 1759384590.632528
+  },
+  "species_Yungipicus canicapillus": {
+    "translation": "Yungipicus canicapillus",
+    "timestamp": 1759384591.845347
+  },
+  "species_Turdus naumanni": {
+    "translation": "Turdus naumanni",
+    "timestamp": 1759384593.06737
+  },
+  "genus_Panthera": {
+    "translation": "Panthera",
+    "timestamp": 1759384594.30338
+  },
+  "species_Panthera tigris": {
+    "translation": "Panthera tigris",
+    "timestamp": 1759384595.528357
+  },
+  "family_Bombycillidae": {
+    "translation": "Bombycillidae",
+    "timestamp": 1759384596.766492
+  },
+  "genus_Bombycilla": {
+    "translation": "Bombycilla",
+    "timestamp": 1759384597.968965
+  },
+  "species_Bombycilla garrulus": {
+    "translation": "Bombycilla garrulus",
+    "timestamp": 1759384599.20527
+  },
+  "genus_Prionailurus": {
+    "translation": "Prionailurus",
+    "timestamp": 1759384600.394554
+  },
+  "species_Prionailurus bengalensis": {
+    "translation": "Prionailurus bengalensis",
+    "timestamp": 1759384601.624453
+  },
+  "genus_Bubo": {
+    "translation": "Bubo",
+    "timestamp": 1759384602.880409
+  },
+  "species_Bubo bubo": {
+    "translation": "Bubo bubo",
+    "timestamp": 1759384604.165321
+  },
+  "species_Corvus corone": {
+    "translation": "Corvus corone",
+    "timestamp": 1759384605.355444
+  },
+  "genus_Alauda": {
+    "translation": "Alauda",
+    "timestamp": 1759384606.54784
+  },
+  "species_Alauda arvensis": {
+    "translation": "Alauda arvensis",
+    "timestamp": 1759384607.783127
+  },
+  "species_Coloeus dauuricus": {
+    "translation": "Coloeus dauuricus",
+    "timestamp": 1759384608.997904
+  },
+  "species_Streptopelia orientalis": {
+    "translation": "Streptopelia orientalis",
+    "timestamp": 1759384610.233387
+  },
+  "species_Emberiza pallasi": {
+    "translation": "Emberiza pallasi",
+    "timestamp": 1759384611.410314
+  },
+  "species_Vanellus vanellus": {
+    "translation": "Vanellus vanellus",
+    "timestamp": 1759384612.642402
+  },
+  "species_Circus spilonotus": {
+    "translation": "Circus spilonotus",
+    "timestamp": 1759384613.847476
+  },
+  "genus_Anser": {
+    "translation": "Anser",
+    "timestamp": 1759384615.072472
+  },
+  "species_Anser albifrons": {
+    "translation": "Anser albifrons",
+    "timestamp": 1759384616.281085
+  },
+  "family_Gruidae": {
+    "translation": "Gruidae",
+    "timestamp": 1759384617.50744
+  },
+  "genus_Grus": {
+    "translation": "Grus",
+    "timestamp": 1759384618.774319
+  },
+  "species_Grus vipio": {
+    "translation": "Grus vipio",
+    "timestamp": 1759384620.088094
+  },
+  "genus_Tamias": {
+    "translation": "Tamias",
+    "timestamp": 1759384621.347707
+  },
+  "species_Tamias sibiricus": {
+    "translation": "Tamias sibiricus",
+    "timestamp": 1759384622.556417
+  },
+  "species_Emberiza rustica": {
+    "translation": "Emberiza rustica",
+    "timestamp": 1759384623.820582
+  },
+  "species_Anas zonorhyncha": {
+    "translation": "Anas zonorhyncha",
+    "timestamp": 1759384625.043095
+  },
+  "species_Grus japonensis": {
+    "translation": "Grus japonensis",
+    "timestamp": 1759384626.242419
+  },
+  "genus_Aix": {
+    "translation": "Aix",
+    "timestamp": 1759384627.447445
+  },
+  "species_Aix galericulata": {
+    "translation": "Aix galericulata",
+    "timestamp": 1759384628.630029
+  },
+  "order_Ciconiiformes": {
+    "translation": "Ciconiiformes",
+    "timestamp": 1759384629.83543
+  },
+  "family_Ciconiidae": {
+    "translation": "Ciconiidae",
+    "timestamp": 1759384631.057349
+  },
+  "genus_Ciconia": {
+    "translation": "Ciconia",
+    "timestamp": 1759384632.277864
+  },
+  "species_Ciconia boyciana": {
+    "translation": "Ciconia boyciana",
+    "timestamp": 1759384633.510348
+  },
+  "species_Prunella montanella": {
+    "translation": "Prunella montanella",
+    "timestamp": 1759384634.714471
+  },
+  "genus_Spodiopsar": {
+    "translation": "Spodiopsar",
+    "timestamp": 1759384635.913523
+  },
+  "species_Spodiopsar cineraceus": {
+    "translation": "Spodiopsar cineraceus",
+    "timestamp": 1759384637.097413
+  },
+  "genus_Mergellus": {
+    "translation": "Mergellus",
+    "timestamp": 1759384638.26963
+  },
+  "species_Mergellus albellus": {
+    "translation": "Mergellus albellus",
+    "timestamp": 1759384639.470344
+  },
+  "species_Mareca falcata": {
+    "translation": "Mareca falcata",
+    "timestamp": 1759384640.709353
+  },
+  "species_Spatula querquedula": {
+    "translation": "Spatula querquedula",
+    "timestamp": 1759384641.902317
+  },
+  "genus_Tarsiger": {
+    "translation": "Tarsiger",
+    "timestamp": 1759384643.101251
+  },
+  "species_Tarsiger cyanurus": {
+    "translation": "Tarsiger cyanurus",
+    "timestamp": 1759384644.294368
+  },
+  "species_Grus grus": {
+    "translation": "Grus grus",
+    "timestamp": 1759384645.54415
+  },
+  "species_Mergus merganser": {
+    "translation": "Mergus merganser",
+    "timestamp": 1759384646.911296
+  },
+  "species_Emberiza spodocephala": {
+    "translation": "Emberiza spodocephala",
+    "timestamp": 1759384648.191944
+  },
+  "species_Grus monacha": {
+    "translation": "Grus monacha",
+    "timestamp": 1759384649.415438
+  },
+  "order_Ixodida": {
+    "translation": "Ixodida",
+    "timestamp": 1759384650.647459
+  },
+  "family_Ixodidae": {
+    "translation": "Ixodidae",
+    "timestamp": 1759384651.886745
+  },
+  "genus_Ixodes": {
+    "translation": "Ixodes",
+    "timestamp": 1759384653.130756
+  },
+  "species_Ixodes persulcatus": {
+    "translation": "Ixodes persulcatus",
+    "timestamp": 1759384654.374316
+  },
+  "species_Turdus hortulorum": {
+    "translation": "Turdus hortulorum",
+    "timestamp": 1759384655.569332
+  },
+  "species_Emberiza pusilla": {
+    "translation": "Emberiza pusilla",
+    "timestamp": 1759384656.845776
+  },
+  "species_Emberiza elegans": {
+    "translation": "Emberiza elegans",
+    "timestamp": 1759384658.094268
+  },
+  "family_Ranidae": {
+    "translation": "Ranidae",
+    "timestamp": 1759384659.348371
+  },
+  "genus_Rana": {
+    "translation": "Rana",
+    "timestamp": 1759384660.672095
+  },
+  "species_Rana dybowskii": {
+    "translation": "Rana dybowskii",
+    "timestamp": 1759384661.867314
+  },
+  "family_Vespidae": {
+    "translation": "Vespidae",
+    "timestamp": 1759384663.089304
+  },
+  "genus_Vespula": {
+    "translation": "Vespula",
+    "timestamp": 1759384664.309355
+  },
+  "species_Vespula germanica": {
+    "translation": "Vespula germanica",
+    "timestamp": 1759384665.517553
+  },
+  "family_Bufonidae": {
+    "translation": "Bufonidae",
+    "timestamp": 1759384666.715411
+  },
+  "genus_Strauchbufo": {
+    "translation": "Strauchbufo",
+    "timestamp": 1759384667.894852
+  },
+  "species_Strauchbufo raddei": {
+    "translation": "Strauchbufo raddei",
+    "timestamp": 1759384669.109455
+  },
+  "order_Caudata": {
+    "translation": "Caudata",
+    "timestamp": 1759384670.334584
+  },
+  "family_Hynobiidae": {
+    "translation": "Hynobiidae",
+    "timestamp": 1759384671.534336
+  },
+  "genus_Salamandrella": {
+    "translation": "Salamandrella",
+    "timestamp": 1759384672.800451
+  },
+  "species_Salamandrella keyserlingii": {
+    "translation": "Salamandrella keyserlingii",
+    "timestamp": 1759384674.033449
+  },
+  "genus_Urocitellus": {
+    "translation": "Urocitellus",
+    "timestamp": 1759384675.210429
+  },
+  "species_Urocitellus undulatus": {
+    "translation": "Urocitellus undulatus",
+    "timestamp": 1759384676.403936
+  },
+  "species_Turdus eunomus": {
+    "translation": "Turdus eunomus",
+    "timestamp": 1759384677.607223
+  },
+  "species_Anser serrirostris": {
+    "translation": "Anser serrirostris",
+    "timestamp": 1759384678.208329
+  },
+  "species_Emberiza yessoensis": {
+    "translation": "Emberiza yessoensis",
+    "timestamp": 1759384679.38237
+  },
+  "genus_Jynx": {
+    "translation": "Jynx",
+    "timestamp": 1759384680.570615
+  },
+  "species_Jynx torquilla": {
+    "translation": "Jynx torquilla",
+    "timestamp": 1759384681.807561
+  },
+  "family_Laniidae": {
+    "translation": "Laniidae",
+    "timestamp": 1759384683.026684
+  },
+  "genus_Lanius": {
+    "translation": "Lanius",
+    "timestamp": 1759384684.239881
+  },
+  "species_Lanius cristatus": {
+    "translation": "Lanius cristatus",
+    "timestamp": 1759384735.616626
+  },
+  "family_Remizidae": {
+    "translation": "Remizidae",
+    "timestamp": 1759384736.853206
+  },
+  "genus_Remiz": {
+    "translation": "Remiz",
+    "timestamp": 1759384738.055199
+  },
+  "species_Remiz consobrinus": {
+    "translation": "Китайский ремез",
+    "timestamp": 1759384739.259338
+  },
+  "genus_Numenius": {
+    "translation": "Numenius",
+    "timestamp": 1759384740.448211
+  },
+  "species_Numenius madagascariensis": {
+    "translation": "Numenius madagascariensis",
+    "timestamp": 1759384741.639216
+  },
+  "species_Emberiza cia": {
+    "translation": "Emberiza cia",
+    "timestamp": 1759386544.96457
+  },
+  "genus_Saxicola": {
+    "translation": "Saxicola",
+    "timestamp": 1759386546.194287
+  },
+  "species_Saxicola rubicola": {
+    "translation": "Saxicola rubicola",
+    "timestamp": 1759386547.389939
+  },
+  "family_Sylviidae": {
+    "translation": "Sylviidae",
+    "timestamp": 1759386548.588007
+  },
+  "genus_Sylvia": {
+    "translation": "Sylvia",
+    "timestamp": 1759386549.777272
+  },
+  "species_Sylvia atricapilla": {
+    "translation": "Sylvia atricapilla",
+    "timestamp": 1759386551.023941
+  },
+  "genus_Luscinia": {
+    "translation": "Luscinia",
+    "timestamp": 1759386552.29053
+  },
+  "species_Luscinia megarhynchos": {
+    "translation": "Luscinia megarhynchos",
+    "timestamp": 1759386553.515172
+  },
+  "species_Phylloscopus trochilus": {
+    "translation": "Phylloscopus trochilus",
+    "timestamp": 1759386555.381647
+  },
+  "species_Phoenicurus phoenicurus": {
+    "translation": "Phoenicurus phoenicurus",
+    "timestamp": 1759386556.651785
+  },
+  "species_Motacilla flava": {
+    "translation": "Motacilla flava",
+    "timestamp": 1759386557.941007
+  },
+  "species_Turdus philomelos": {
+    "translation": "Turdus philomelos",
+    "timestamp": 1759386559.120721
+  },
+  "genus_Otus": {
+    "translation": "Otus",
+    "timestamp": 1759386560.330581
+  },
+  "species_Otus scops": {
+    "translation": "Otus scops",
+    "timestamp": 1759386562.42669
+  },
+  "species_Sylvia curruca": {
+    "translation": "Sylvia curruca",
+    "timestamp": 1759386563.673724
+  },
+  "family_Vespertilionidae": {
+    "translation": "Vespertilionidae",
+    "timestamp": 1759386564.908943
+  },
+  "genus_Pipistrellus": {
+    "translation": "Pipistrellus",
+    "timestamp": 1759386566.174075
+  },
+  "species_Pipistrellus kuhlii": {
+    "translation": "Pipistrellus kuhlii",
+    "timestamp": 1759386567.451423
+  },
+  "family_Calopterygidae": {
+    "translation": "Calopterygidae",
+    "timestamp": 1759386568.664798
+  },
+  "genus_Calopteryx": {
+    "translation": "Calopteryx",
+    "timestamp": 1759386570.504295
+  },
+  "species_Calopteryx splendens": {
+    "translation": "Calopteryx splendens",
+    "timestamp": 1759386571.688294
+  },
+  "family_Mutillidae": {
+    "translation": "Mutillidae",
+    "timestamp": 1759386572.865188
+  },
+  "genus_Skorikovia": {
+    "translation": "Skorikovia",
+    "timestamp": 1759386574.088353
+  },
+  "family_Cosmopterigidae": {
+    "translation": "Cosmopterigidae",
+    "timestamp": 1759386575.292253
+  },
+  "genus_Vulcaniella": {
+    "translation": "Vulcaniella",
+    "timestamp": 1759386576.513492
+  },
+  "species_Vulcaniella karadaghella": {
+    "translation": "Vulcaniella karadaghella",
+    "timestamp": 1759386577.696762
+  },
+  "genus_Emys": {
+    "translation": "Emys",
+    "timestamp": 1759386578.920078
+  },
+  "species_Emys orbicularis": {
+    "translation": "Emys orbicularis",
+    "timestamp": 1759386580.123621
+  },
+  "family_Rhinolophidae": {
+    "translation": "Rhinolophidae",
+    "timestamp": 1759386581.327508
+  },
+  "genus_Rhinolophus": {
+    "translation": "Rhinolophus",
+    "timestamp": 1759386582.488505
+  },
+  "species_Rhinolophus hipposideros": {
+    "translation": "Rhinolophus hipposideros",
+    "timestamp": 1759386583.709327
+  },
+  "order_Cardiida": {
+    "translation": "Cardiida",
+    "timestamp": 1759386585.44151
+  },
+  "family_Tellinidae": {
+    "translation": "Tellinidae",
+    "timestamp": 1759386586.649644
+  },
+  "genus_Tellina": {
+    "translation": "Tellina",
+    "timestamp": 1759386587.837947
+  },
+  "species_Tellina radiata": {
+    "translation": "Tellina radiata",
+    "timestamp": 1759386589.017153
+  },
+  "order_Trombidiformes": {
+    "translation": "Trombidiformes",
+    "timestamp": 1759386590.205503
+  },
+  "family_Eriophyidae": {
+    "translation": "Eriophyidae",
+    "timestamp": 1759386591.43064
+  },
+  "genus_Colomerus": {
+    "translation": "Colomerus",
+    "timestamp": 1759386592.632325
+  },
+  "species_Colomerus vitis": {
+    "translation": "Colomerus vitis",
+    "timestamp": 1759386593.834236
+  },
+  "order_Perciformes": {
+    "translation": "Perciformes",
+    "timestamp": 1759386595.305234
+  },
+  "family_Carangidae": {
+    "translation": "Carangidae",
+    "timestamp": 1759386596.52719
+  },
+  "genus_Trachurus": {
+    "translation": "Trachurus",
+    "timestamp": 1759386597.706415
+  },
+  "species_Trachurus mediterraneus": {
+    "translation": "Trachurus mediterraneus",
+    "timestamp": 1759386598.947995
+  },
+  "order_Scorpaeniformes": {
+    "translation": "Scorpaeniformes",
+    "timestamp": 1759386600.349205
+  },
+  "family_Scorpaenidae": {
+    "translation": "Scorpaenidae",
+    "timestamp": 1759386601.521448
+  },
+  "genus_Scorpaena": {
+    "translation": "Scorpaena",
+    "timestamp": 1759386602.71961
+  },
+  "species_Scorpaena porcus": {
+    "translation": "Scorpaena porcus",
+    "timestamp": 1759386603.879684
+  },
+  "order_Decapoda": {
+    "translation": "Decapoda",
+    "timestamp": 1759386605.081678
+  },
+  "family_Brachyura": {
+    "translation": "Brachyura",
+    "timestamp": 1759386606.261202
+  },
+  "class_Polychaeta": {
+    "translation": "Polychaeta",
+    "timestamp": 1759386607.533518
+  },
+  "order_Phyllodocida": {
+    "translation": "Phyllodocida",
+    "timestamp": 1759386608.726757
+  },
+  "family_Nereididae": {
+    "translation": "Nereididae",
+    "timestamp": 1759386609.885087
+  },
+  "genus_Nereis": {
+    "translation": "Nereis",
+    "timestamp": 1759386611.09078
+  },
+  "order_Ostreida": {
+    "translation": "Ostreida",
+    "timestamp": 1759386612.287709
+  },
+  "family_Ostreidae": {
+    "translation": "Ostreidae",
+    "timestamp": 1759386613.486329
+  },
+  "genus_Ostrea": {
+    "translation": "Ostrea",
+    "timestamp": 1759386614.720532
+  },
+  "species_Ostrea gigantea": {
+    "translation": "Ostrea gigantea",
+    "timestamp": 1759386615.987572
+  },
+  "family_Camaenidae": {
+    "translation": "Camaenidae",
+    "timestamp": 1759386617.213464
+  },
+  "genus_Fruticicola": {
+    "translation": "Fruticicola",
+    "timestamp": 1759386618.416489
+  },
+  "species_Fruticicola fruticum": {
+    "translation": "Fruticicola fruticum",
+    "timestamp": 1759386619.587658
+  },
+  "phylum_Nemertea": {
+    "translation": "Nemertea",
+    "timestamp": 1759386620.777714
+  },
+  "family_Eriphiidae": {
+    "translation": "Eriphiidae",
+    "timestamp": 1759386621.972758
+  },
+  "genus_Eriphia": {
+    "translation": "Eriphia",
+    "timestamp": 1759386623.18392
+  },
+  "species_Eriphia verrucosa": {
+    "translation": "Eriphia verrucosa",
+    "timestamp": 1759386624.347914
+  },
+  "family_Carcinidae": {
+    "translation": "Carcinidae",
+    "timestamp": 1759386625.525984
+  },
+  "genus_Carcinus": {
+    "translation": "Carcinus",
+    "timestamp": 1759386626.741173
+  },
+  "species_Carcinus maenas": {
+    "translation": "Carcinus maenas",
+    "timestamp": 1759386627.92257
+  },
+  "genus_Melanocorypha": {
+    "translation": "Melanocorypha",
+    "timestamp": 1759386629.147244
+  },
+  "species_Melanocorypha calandra": {
+    "translation": "Melanocorypha calandra",
+    "timestamp": 1759386630.35137
+  },
+  "family_Clubionidae": {
+    "translation": "Clubionidae",
+    "timestamp": 1759386631.501088
+  },
+  "genus_Clubiona": {
+    "translation": "Clubiona",
+    "timestamp": 1759386632.703074
+  },
+  "family_Gnaphosidae": {
+    "translation": "Gnaphosidae",
+    "timestamp": 1759386633.929671
+  },
+  "genus_Drassodes": {
+    "translation": "Drassodes",
+    "timestamp": 1759386635.128707
+  },
+  "genus_Nomisia": {
+    "translation": "Nomisia",
+    "timestamp": 1759386636.284051
+  },
+  "species_Nomisia aussereri": {
+    "translation": "Nomisia aussereri",
+    "timestamp": 1759386637.445564
+  },
+  "genus_Xysticus": {
+    "translation": "Xysticus",
+    "timestamp": 1759386638.660605
+  },
+  "species_Xysticus kochi": {
+    "translation": "Xysticus kochi",
+    "timestamp": 1759386639.914711
+  },
+  "genus_Episinus": {
+    "translation": "Episinus",
+    "timestamp": 1759386641.118367
+  },
+  "species_Episinus truncatus": {
+    "translation": "Episinus truncatus",
+    "timestamp": 1759386642.32954
   }
 }
