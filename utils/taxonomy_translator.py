@@ -1,0 +1,169 @@
+import requests
+import json
+import os
+from datetime import datetime, timedelta
+
+
+class TaxonomyTranslator:
+    def __init__(self, cache_dir="data/cache"):
+        self.cache_dir = cache_dir
+        self.translations_cache = os.path.join(cache_dir, "taxonomy_translations.json")
+        os.makedirs(cache_dir, exist_ok=True)
+        self._load_translations()
+
+        # Базовый словарь переводов для основных таксонов
+        self.base_translations = {
+            # Типы (Phylum)
+            "Chordata": "Хордовые",
+            "Arthropoda": "Членистоногие",
+            "Mollusca": "Моллюски",
+            "Annelida": "Кольчатые черви",
+            "Cnidaria": "Стрекающие",
+            "Echinodermata": "Иглокожие",
+
+            # Классы (Class)
+            "Mammalia": "Млекопитающие",
+            "Aves": "Птицы",
+            "Reptilia": "Пресмыкающиеся",
+            "Amphibia": "Земноводные",
+            "Actinopterygii": "Костные рыбы",
+            "Insecta": "Насекомые",
+            "Arachnida": "Паукообразные",
+            "Gastropoda": "Брюхоногие",
+            "Bivalvia": "Двустворчатые",
+            "Malacostraca": "Высшие раки",
+
+            # Отряды (Order) - Птицы
+            "Passeriformes": "Воробьинообразные",
+            "Falconiformes": "Соколообразные",
+            "Strigiformes": "Совообразные",
+            "Anseriformes": "Гусеобразные",
+            "Galliformes": "Курообразные",
+            "Charadriiformes": "Ржанкообразные",
+            "Columbiformes": "Голубеобразные",
+            "Piciformes": "Дятлообразные",
+            "Coraciiformes": "Ракшеобразные",
+
+            # Отряды (Order) - Млекопитающие
+            "Carnivora": "Хищные",
+            "Rodentia": "Грызуны",
+            "Lagomorpha": "Зайцеобразные",
+            "Artiodactyla": "Парнокопытные",
+            "Chiroptera": "Рукокрылые",
+            "Eulipotyphla": "Насекомоядные",
+
+            # Семейства (Family) - примеры
+            "Passeridae": "Воробьиные",
+            "Paridae": "Синицевые",
+            "Corvidae": "Врановые",
+            "Accipitridae": "Ястребиные",
+            "Falconidae": "Соколиные",
+            "Anatidae": "Утиные",
+            "Phasianidae": "Фазановые",
+            "Scolopacidae": "Бекасовые",
+            "Laridae": "Чайковые",
+            "Strigidae": "Настоящие совы",
+            "Mustelidae": "Куньи",
+            "Canidae": "Псовые",
+            "Felidae": "Кошачьи",
+            "Ursidae": "Медвежьи",
+            "Cervidae": "Оленевые",
+            "Leporidae": "Заячьи",
+            "Sciuridae": "Беличьи",
+            "Muridae": "Мышиные"
+        }
+
+    def _load_translations(self):
+        """Загружает кэш переводов"""
+        try:
+            with open(self.translations_cache, 'r', encoding='utf-8') as f:
+                self.translations = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            self.translations = {}
+
+    def _save_translations(self):
+        """Сохраняет кэш переводов"""
+        try:
+            with open(self.translations_cache, 'w', encoding='utf-8') as f:
+                json.dump(self.translations, f, ensure_ascii=False, indent=2)
+        except Exception as e:
+            print(f"❌ Ошибка сохранения переводов: {e}")
+
+    def translate_taxon(self, taxon_name, taxon_rank):
+        """Переводит таксон на русский язык"""
+        if not taxon_name or taxon_name in ['Не указано', 'Unknown']:
+            return 'Не указано'
+
+        # Проверяем базовый словарь
+        if taxon_name in self.base_translations:
+            return self.base_translations[taxon_name]
+
+        # Проверяем кэш
+        cache_key = f"{taxon_rank}_{taxon_name}"
+        if cache_key in self.translations:
+            cached = self.translations[cache_key]
+            # Проверяем не устарел ли кэш (30 дней)
+            if datetime.now().timestamp() - cached.get('timestamp', 0) < 30 * 24 * 3600:
+                return cached['translation']
+
+        # Ищем перевод через API
+        translation = self._translate_via_api(taxon_name, taxon_rank)
+
+        # Сохраняем в кэш
+        self.translations[cache_key] = {
+            'translation': translation,
+            'timestamp': datetime.now().timestamp()
+        }
+        self._save_translations()
+
+        return translation
+
+    def _translate_via_api(self, taxon_name, taxon_rank):
+        """Переводит таксон через API GBIF и другие источники"""
+        # Сначала пробуем GBIF API для получения русских названий
+        try:
+            # Ищем таксон в GBIF
+            search_url = f"https://api.gbif.org/v1/species/search"
+            params = {
+                'q': taxon_name,
+                'limit': 1
+            }
+            response = requests.get(search_url, params=params, timeout=10)
+            if response.status_code == 200:
+                data = response.json()
+                if data['results']:
+                    species_key = data['results'][0]['key']
+
+                    # Получаем vernacular names
+                    vern_url = f"https://api.gbif.org/v1/species/{species_key}/vernacularNames"
+                    vern_response = requests.get(vern_url, timeout=10)
+                    if vern_response.status_code == 200:
+                        vern_data = vern_response.json()
+                        for vern in vern_data.get('results', []):
+                            if vern.get('language') == 'rus':
+                                return vern.get('vernacularName')
+        except:
+            pass
+
+        # Если не нашли через GBIF, возвращаем оригинальное название
+        return taxon_name
+
+    def translate_animal_data(self, animal_data):
+        """Переводит все таксоны в данных о животном"""
+        translated = animal_data.copy()
+
+        # Переводим основные таксоны
+        taxon_fields = {
+            'phylum': 'phylum',
+            'class': 'class',
+            'order': 'order',
+            'family': 'family',
+            'genus': 'genus',
+            'species': 'species'
+        }
+
+        for field, rank in taxon_fields.items():
+            if field in translated and translated[field]:
+                translated[f'{field}_ru'] = self.translate_taxon(translated[field], rank)
+
+        return translated

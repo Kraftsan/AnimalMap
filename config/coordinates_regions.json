@@ -1,0 +1,50 @@
+{
+  "coordinates_cache": {
+    "52.9000_100.0000": {
+      "region_name_ru": "Республика Бурятия",
+      "region_name_en": "Республика Бурятия",
+      "timestamp": 1759376102.199077,
+      "address": {
+        "municipality": "Бурунгольское сельское поселение",
+        "county": "Окинский район",
+        "state": "Республика Бурятия",
+        "ISO3166-2-lvl4": "RU-BU",
+        "region": "Дальневосточный федеральный округ",
+        "country": "Россия",
+        "country_code": "ru"
+      }
+    },
+    "51.2569_134.9419": {
+      "region_name_ru": "Хабаровский край",
+      "region_name_en": "Хабаровский край",
+      "timestamp": 1759376186.503447,
+      "address": {
+        "county": "Солнечный район",
+        "state": "Хабаровский край",
+        "ISO3166-2-lvl4": "RU-KHA",
+        "region": "Дальневосточный федеральный округ",
+        "country": "Россия",
+        "country_code": "ru"
+      }
+    },
+    "55.7207_37.5245": {
+      "region_name_ru": "Москва",
+      "region_name_en": "Москва",
+      "timestamp": 1759376972.120425,
+      "address": {
+        "house_number": "32",
+        "road": "Мосфильмовская улица",
+        "neighbourhood": "Потылиха",
+        "suburb": "район Раменки",
+        "city": "Москва",
+        "state": "Москва",
+        "ISO3166-2-lvl4": "RU-MOW",
+        "region": "Центральный федеральный округ",
+        "postcode": "119285",
+        "country": "Россия",
+        "country_code": "ru"
+      }
+    }
+  },
+  "last_updated": "2025-10-02T12:49:32.120430"
+}

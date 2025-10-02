@@ -1,0 +1,15 @@
+{
+  "regions": {
+    "Amur": {
+      "name_ru": "Амурская",
+      "data_file": "amur.json",
+      "last_updated": "2025-10-02T12:11:26.372008"
+    },
+    "Krasnodar": {
+      "name_ru": "Krasnodar",
+      "data_file": "krasnodar.json",
+      "last_updated": "2025-10-02T12:46:58.128443"
+    }
+  },
+  "last_updated": "2025-10-02T12:46:58.128447"
+}
