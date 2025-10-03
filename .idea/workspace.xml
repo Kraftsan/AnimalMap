@@ -11,8 +11,6 @@
       <change beforePath="$PROJECT_DIR$/data/cache/api_cache.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/cache/api_cache.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/cache/taxonomy_translations.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/cache/taxonomy_translations.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/data_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/data_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/taxonomy_translator.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/taxonomy_translator.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +26,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory"><![CDATA[{
   "lastFilter": {
@@ -38,7 +37,7 @@
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
     "url": "https://github.com/Kraftsan/AnimalMap.git",
-    "accountId": "05cda1af-d86a-4cab-b4e4-c9401ee1149f"
+    "accountId": "d55abf13-a03a-4de7-97f9-b6bc61fd404e"
   }
 }]]></component>
   <component name="ProjectColorInfo">{

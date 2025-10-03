@@ -296,7 +296,7 @@ class AnimalFinder:
                 'class': 'Mammalia,Aves,Reptilia,Amphibia,Insecta,Arachnida,Actinopterygii',
                 'hasCoordinate': 'true',
                 'basisOfRecord': 'HUMAN_OBSERVATION,OBSERVATION',
-                'limit': 200
+                'limit': 2000
             },
             # Запрос 2: Только животные с наблюдениями
             {
@@ -305,7 +305,7 @@ class AnimalFinder:
                 'kingdom': 'Animalia',
                 'hasCoordinate': 'true',
                 'basisOfRecord': 'HUMAN_OBSERVATION,OBSERVATION',
-                'limit': 200
+                'limit': 2000
             },
             # Запрос 3: Менее строгий фильтр
             {
@@ -313,7 +313,7 @@ class AnimalFinder:
                 'stateProvince': region_name_en,
                 'kingdom': 'Animalia',
                 'hasCoordinate': 'true',
-                'limit': 200
+                'limit': 2000
             }
         ]
 
@@ -422,7 +422,7 @@ class AnimalFinder:
         print(f"✅ После строгой фильтрации: {len(animal_data)} животных")
         return animal_data
 
-    def get_animals_by_coordinates_radius(self, latitude, longitude, radius_km=50, limit=100):
+    def get_animals_by_coordinates_radius(self, latitude, longitude, radius_km=50, limit=1000):
         """Поиск животных в радиусе от координат"""
         print(f"📍 Поиск в радиусе {radius_km} км от {latitude}, {longitude}")
 
@@ -466,7 +466,7 @@ class AnimalFinder:
             print(f"   BasisOfRecord: {record.get('basisOfRecord', 'N/A')}")
             print(f"   Dataset: {record.get('datasetName', 'N/A')}")
 
-    def search_known_russian_animals(self, region_name_en, limit=50):
+    def search_known_russian_animals(self, region_name_en, limit=100):
         """Поиск конкретных известных животных России"""
         print(f"🔍 Поиск известных животных России в регионе {region_name_en}")
 
@@ -524,7 +524,9 @@ class AnimalFinder:
 
     def get_animals_by_region(self, region_name_ru, force_update=False):
         """Основной метод получения животных по региону"""
-        region_name_en = self.region_translations.get(region_name_ru, region_name_ru)
+        # Получаем правильное название региона для GBIF
+        region_name_en = self.get_correct_region_name(region_name_ru)
+        print(f"🎯 Используем название региона для GBIF: {region_name_en}")
 
         # Проверяем, есть ли данные в локальном хранилище
         if not force_update and self.data_manager.region_exists(region_name_en):
@@ -536,15 +538,15 @@ class AnimalFinder:
                 return translated_data
 
         # Получаем данные через API
-        print(f"🌐 Запрашиваем данные через API для {region_name_ru}")
+        print(f"🌐 Запрашиваем данные через API для {region_name_ru} ({region_name_en})")
 
-        # Сначала обычный поиск
-        animal_data = self._fetch_from_api(region_name_en, region_name_ru)
+        # Сначала обычный поиск с большим лимитом
+        animal_data = self._fetch_from_api_large(region_name_en, region_name_ru, limit=2000)
 
         # Если не нашли, пробуем поиск известных животных
         if not animal_data:
             print(f"🦌 Пробуем поиск известных животных...")
-            animal_data = self.search_known_russian_animals(region_name_en)
+            animal_data = self.search_known_russian_animals(region_name_en, limit=200)
 
         if animal_data:
             # Переводим данные перед сохранением
@@ -559,6 +561,46 @@ class AnimalFinder:
             print(f"❌ Не удалось получить данные для {region_name_ru}")
             return []
 
+    def _fetch_from_api_large(self, region_name_en, region_name_ru, limit=2000):
+        """Получает данные через GBIF API с большим лимитом"""
+        base_url = "https://api.gbif.org/v1"
+
+        # Параметры запроса с большим лимитом
+        params = {
+            'country': 'RU',
+            'stateProvince': region_name_en,
+            'kingdom': 'Animalia',
+            'limit': limit
+        }
+
+        # Проверяем кэш
+        cached_data = self.data_manager.get_api_cache(params)
+        if cached_data:
+            print("♻️ Используем кэшированные данные API")
+            return cached_data
+
+        try:
+            print(f"🔗 Отправляем запрос к GBIF API (лимит: {limit})...")
+            response = requests.get(f"{base_url}/occurrence/search", params=params, timeout=60)
+            if response.status_code == 200:
+                data = response.json()
+                print(f"📊 API вернул {data['count']} записей")
+
+                animal_data = self._process_api_response(data.get('results', []))
+
+                # Сохраняем в кэш
+                self.data_manager.save_api_cache(params, animal_data)
+                print(f"💾 Сохранено в кэш: {len(animal_data)} животных")
+
+                return animal_data
+            else:
+                print(f"❌ Ошибка API: {response.status_code}")
+                return []
+
+        except Exception as e:
+            print(f"❌ Ошибка при запросе к API: {e}")
+            return []
+
     def _fetch_from_api(self, region_name_en, region_name_ru):
         """Получает данные через GBIF API"""
         base_url = "https://api.gbif.org/v1"
@@ -568,7 +610,7 @@ class AnimalFinder:
             'country': 'RU',
             'stateProvince': region_name_en,
             'kingdom': 'Animalia',
-            'limit': 1000
+            'limit': 2000
         }
 
         # Проверяем кэш
@@ -598,6 +640,30 @@ class AnimalFinder:
         except Exception as e:
             print(f"❌ Ошибка при запросе к API: {e}")
             return []
+
+    def get_correct_region_name(self, region_name_ru):
+        """Определяет правильное название региона для GBIF API"""
+        region_mapping = {
+            'Забайкальский край': 'Zabaykalsky Krai',
+            'Забайкальский': 'Zabaykalsky Krai',
+            'Zabaykalsky': 'Zabaykalsky Krai',
+            'Крым': 'Crimea',
+            'Республика Крым': 'Crimea',
+            'Москва': 'Moscow',
+            'Московская': 'Moscow',
+            'Санкт-Петербург': 'Saint Petersburg',
+            'Ленинградская': 'Leningrad',
+            'Краснодарский край': 'Krasnodar Krai',
+            'Краснодарская': 'Krasnodar Krai',
+            'Новосибирская': 'Novosibirsk',
+            'Амурская': 'Amur',
+            'Брянская': 'Bryansk',
+            'Нижегородская': 'Nizhny Novgorod',
+            'Татарстан': 'Tatarstan',
+            'Сахалин': 'Sakhalin'
+        }
+
+        return region_mapping.get(region_name_ru, region_name_ru)
 
     def _process_api_response(self, records):
         """Обрабатывает ответ от API - с детальной отладкой"""
@@ -711,35 +777,67 @@ class AnimalFinder:
         return animal_data
 
     def get_animals_by_coordinates(self, latitude, longitude, force_update=False):
-        """Получает животных по координатам - улучшенная версия"""
+        """Получает животных по координатам - пробуем оба метода"""
         print(f"📍 Поиск животных для координат: {latitude}, {longitude}")
 
-        # Сначала пробуем определить регион
+        # Сначала пробуем через определение региона
         region_ru, region_en = self.get_region_by_coordinates(latitude, longitude)
-        print(f"🎯 Определен регион: {region_ru}")
+        print(f"🎯 Определен регион: {region_ru} -> {region_en}")
 
-        # Пробуем поиск по региону
+        # Получаем правильное название для GBIF
+        correct_region_en = self.get_correct_region_name(region_ru)
+        print(f"🎯 Используем название для GBIF: {correct_region_en}")
+
         animals_by_region = self.get_animals_by_region(region_ru, force_update)
 
         if animals_by_region:
             print(f"✅ Найдено {len(animals_by_region)} животных через регион '{region_ru}'")
             return animals_by_region
         else:
-            print(f"❌ Через регион '{region_ru}' не найдено животных")
+            print(f"❌ Через регион '{region_ru}' не найдено животных, пробуем прямой поиск...")
+            # Пробуем прямой поиск по координатам
+            animals_direct = self.get_animals_by_coordinates_direct(latitude, longitude)
 
-            # Пробуем поиск в радиусе от координат
-            print("🔍 Пробуем поиск в радиусе от координат...")
-            animals_radius = self.get_animals_by_coordinates_radius(latitude, longitude)
-
-            if animals_radius:
-                print(f"✅ Поиск по радиусу нашел {len(animals_radius)} животных")
+            if animals_direct:
+                print(f"✅ Прямой поиск нашел {len(animals_direct)} животных")
                 # Сохраняем найденных животных под регионом
                 if region_ru != "Неизвестный регион":
-                    self.data_manager.save_region_data(region_en, region_ru, animals_radius)
-                return animals_radius
+                    self.data_manager.save_region_data(correct_region_en, region_ru, animals_direct)
+                return animals_direct
             else:
-                print("❌ Все методы не дали результатов")
+                print("❌ Оба метода не дали результатов")
                 return []
+
+    def get_animals_by_coordinates_direct(self, latitude, longitude, radius_km=100, limit=1000):
+        """Прямой поиск животных по координатам без определения региона"""
+        print(f"📍 Прямой поиск по координатам: {latitude}, {longitude}")
+
+        base_url = "https://api.gbif.org/v1"
+
+        params = {
+            'decimalLatitude': latitude,
+            'decimalLongitude': longitude,
+            'coordinateUncertaintyInMeters': radius_km * 1000,
+            'kingdom': 'Animalia',
+            'hasCoordinate': 'true',
+            'limit': limit
+        }
+
+        try:
+            response = requests.get(f"{base_url}/occurrence/search", params=params, timeout=30)
+            if response.status_code == 200:
+                data = response.json()
+                print(f"📊 Прямой поиск вернул {data['count']} записей")
+
+                animal_data = self._process_api_response(data.get('results', []))
+                return animal_data
+            else:
+                print(f"❌ Ошибка прямого поиска: {response.status_code}")
+                return []
+
+        except Exception as e:
+            print(f"❌ Ошибка при прямом поиске: {e}")
+            return []
 
     def _get_russian_common_name(self, species_key):
         """Получает русское название вида"""

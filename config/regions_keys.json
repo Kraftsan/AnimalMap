@@ -39,7 +39,17 @@
       "name_ru": "Crimea",
       "data_file": "crimea.json",
       "last_updated": "2025-10-02T15:30:42.342197"
+    },
+    "Sakhalin": {
+      "name_ru": "Sakhalin",
+      "data_file": "sakhalin.json",
+      "last_updated": "2025-10-03T08:16:40.736227"
+    },
+    "Zabaykalsky Krai": {
+      "name_ru": "Забайкальский край",
+      "data_file": "zabaykalsky krai.json",
+      "last_updated": "2025-10-03T08:59:31.946160"
     }
   },
-  "last_updated": "2025-10-02T15:30:42.342202"
+  "last_updated": "2025-10-03T08:59:31.946164"
 }

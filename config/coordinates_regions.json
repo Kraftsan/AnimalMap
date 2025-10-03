@@ -167,7 +167,20 @@
         "country": "Россия",
         "country_code": "ru"
       }
+    },
+    "54.6818_117.9856": {
+      "region_name_ru": "Забайкальский край",
+      "region_name_en": "Zabaykalsky",
+      "timestamp": 1759448162.12167,
+      "address": {
+        "county": "Тунгокоченский муниципальный округ",
+        "state": "Забайкальский край",
+        "ISO3166-2-lvl4": "RU-ZAB",
+        "region": "Дальневосточный федеральный округ",
+        "country": "Россия",
+        "country_code": "ru"
+      }
     }
   },
-  "last_updated": "2025-10-02T14:38:37.691269"
+  "last_updated": "2025-10-03T08:36:02.121675"
 }
