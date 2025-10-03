@@ -284,11 +284,15 @@ class DataManager:
         return data.get('metadata', {}) if data else {}
 
     def save_region_data(self, region_name_en, region_name_ru, animal_data):
-        """Сохраняет данные о животных региона"""
+        """Сохраняет данные о животных региона с нормализованным именем файла"""
+        # Нормализуем имя файла - только латинские символы в нижнем регистре
+        normalized_name = "".join(c for c in region_name_en if c.isalnum()).lower()
+
         region_data = {
             "metadata": {
                 "region_name_ru": region_name_ru,
                 "region_name_en": region_name_en,
+                "normalized_name": normalized_name,
                 "last_updated": datetime.now().isoformat(),
                 "total_records": len(animal_data),
                 "unique_species": len(set([animal.get('scientific_name', '') for animal in animal_data]))
@@ -297,13 +301,35 @@ class DataManager:
             "statistics": self._calculate_statistics(animal_data)
         }
 
-        filepath = self._get_region_filepath(region_name_en)
+        filepath = os.path.join(self.regions_path, f"{normalized_name}.json")
         success = self._save_json(filepath, region_data)
 
         if success:
-            self._update_region_keys(region_name_en, region_name_ru)
+            # Исправленный вызов - передаем только 2 аргумента
+            self._update_region_keys(normalized_name, region_name_ru)
 
         return success
+
+    def _update_region_keys(self, normalized_name, region_name_ru):
+        """Обновляет файл ключей регионов с нормализованными именами"""
+        keys_data = self._load_json(self.keys_path) or {"regions": {}, "last_updated": None}
+
+        keys_data["regions"][normalized_name] = {
+            "name_ru": region_name_ru,
+            "data_file": f"{normalized_name}.json",
+            "last_updated": datetime.now().isoformat()
+        }
+        keys_data["last_updated"] = datetime.now().isoformat()
+
+        self._save_json(self.keys_path, keys_data)
+
+    def get_region_data(self, normalized_name):
+        """Получает данные по региону по нормализованному имени"""
+        filepath = os.path.join(self.regions_path, f"{normalized_name}.json")
+        data = self._load_json(filepath)
+        if data and 'animals' in data:
+            return data['animals']
+        return []
 
     def _calculate_statistics(self, animal_data):
         """Рассчитывает статистику по данным о животных"""

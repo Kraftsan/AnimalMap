@@ -3,12 +3,17 @@ import pandas as pd
 from utils.data_manager import DataManager
 from utils.taxonomy_translator import TaxonomyTranslator
 import time
-
+from utils.russian_animals_db import RussianAnimalsDB
+import sys
+import time
+from tqdm import tqdm
 
 class AnimalFinder:
     def __init__(self):
         self.data_manager = DataManager()
         self.translator = TaxonomyTranslator()
+        self.animals_db = RussianAnimalsDB()
+        self.common_name_cache = {}
         self.region_translations = {
             'Амурская': 'Amur',
             'Московская': 'Moscow',
@@ -89,27 +94,46 @@ class AnimalFinder:
             # Возвращаем регионы, которые мы знаем что работают
             return ["Krasnodar", "Moscow", "Tatarstan", "Amur", "Bryansk", "Nizhny Novgorod"]
 
+    def _get_russian_common_name_cached(self, species_key):
+        """Получает русское название вида с кэшированием"""
+        if not species_key:
+            return 'Не указано'
+
+        if species_key in self.common_name_cache:
+            return self.common_name_cache[species_key]
+
+        common_name = self._get_russian_common_name(species_key)
+        self.common_name_cache[species_key] = common_name
+        return common_name
+
     def analyze_region_improved(self, region_name_ru):
-        """Улучшенный анализ региона с группировкой по классам"""
+        """Улучшенный анализ региона с группировкой по классам и фильтрацией"""
         animals = self.get_animals_by_region(region_name_ru)
 
         if not animals:
             print(f"❌ Нет данных для региона {region_name_ru}")
             return
 
-        df = pd.DataFrame(animals)
+        # ПРИМЕНЯЕМ ФИЛЬТРАЦИЮ ДО АНАЛИЗА
+        filtered_animals = self.filter_animals_data(animals, min_count=2)
+
+        if not filtered_animals:
+            print(f"🎯 После фильтрации не осталось значимых данных для региона {region_name_ru}")
+            return
+
+        df = pd.DataFrame(filtered_animals)
 
         print(f"\n{'=' * 60}")
         print(f"🐾 АНАЛИЗ ЖИВОТНЫХ В {region_name_ru.upper()} ОБЛАСТИ")
         print(f"{'=' * 60}")
 
         print(f"\n📊 ОБЩАЯ СТАТИСТИКА:")
-        print(f"Всего находок: {len(animals)}")
+        print(f"Всего находок: {len(filtered_animals)}")
         print(f"Уникальных видов: {df['scientific_name'].nunique()}")
 
         # Группировка по классам с перечислением видов - безопасный подход
         class_groups = {}
-        for animal in animals:
+        for animal in filtered_animals:  # ИСПОЛЬЗУЕМ ОТФИЛЬТРОВАННЫЕ ДАННЫЕ
             # Используем class_ru если есть, иначе обычный class
             class_name = animal.get('class_ru')
             if not class_name or class_name == 'Не указано':
@@ -119,12 +143,19 @@ class AnimalFinder:
                 class_groups[class_name] = []
             class_groups[class_name].append(animal)
 
+        # Показываем только значимые классы
+        significant_classes = 0
         for class_name, group_animals in class_groups.items():
-            if class_name and class_name != 'Не указано':
+            if class_name and class_name != 'Не указано' and len(group_animals) >= 2:  # Минимум 2 животные в классе
                 class_count = len(group_animals)
-                percentage = (class_count / len(animals)) * 100
+                percentage = (class_count / len(filtered_animals)) * 100
+
+                # Пропускаем неинтересные классы
+                if class_name in ['Насекомые', 'Паукообразные', 'Диплоподы', 'Губки']:
+                    continue
 
                 print(f"\n📈 {class_name.upper()} - {class_count} ({percentage:.1f}%):")
+                significant_classes += 1
 
                 # Топ видов в этом классе
                 species_counts = {}
@@ -142,11 +173,22 @@ class AnimalFinder:
                     display_name = common_name if common_name != 'Не указано' else species
                     print(f"   {i}. {display_name} - {count} находок")
 
-    def show_detailed_animal_info_improved(self, animals, count=5):
-        """Улучшенный вывод детальной информации о животных"""
-        print(f"\n🔍 ДЕТАЛЬНАЯ ИНФОРМАЦИЯ О {min(count, len(animals))} ЖИВОТНЫХ:")
+        if significant_classes == 0:
+            print("🎯 Нет значимых классов животных для показа")
 
-        for i, animal in enumerate(animals[:count], 1):
+    def show_detailed_animal_info_improved(self, animals, count=8):
+        """Улучшенный вывод детальной информации о животных с фильтрацией"""
+        # ФИЛЬТРУЕМ данные перед показом
+        filtered_animals = self.filter_animals_data(animals, min_count=1)  # Минимум 1 находка для показа
+
+        if not filtered_animals:
+            print("🎯 После фильтрации не осталось значимых животных для показа")
+            return
+
+        display_count = min(count, len(filtered_animals))
+        print(f"\n🔍 ДЕТАЛЬНАЯ ИНФОРМАЦИЯ О {display_count} ЖИВОТНЫХ:")
+
+        for i, animal in enumerate(filtered_animals[:display_count], 1):
             # Используем научное название, если нет русского
             display_name = animal.get('common_name', 'Не указано')
             if display_name == 'Не указано':
@@ -181,13 +223,20 @@ class AnimalFinder:
             if taxon_info:
                 print(f"   {' | '.join(taxon_info)}")
 
-            # Дополнительная информация
+            # Источник данных
+            source = animal.get('source', 'GBIF')
+            if source == 'local_db':
+                print(f"   📚 Источник: база данных")
+            else:
+                print(f"   🌐 Источник: GBIF")
+
+            # Дополнительная информация (только если есть)
             if animal.get('locality') and animal['locality'] != 'Не указано':
-                print(f"   Место: {animal['locality']}")
+                print(f"   📍 Место: {animal['locality']}")
             if animal.get('eventDate') and animal['eventDate'] != 'Не указано':
                 # Обрезаем время, если есть
                 date_str = animal['eventDate'].split('T')[0] if 'T' in animal['eventDate'] else animal['eventDate']
-                print(f"   Дата: {date_str}")
+                print(f"   📅 Дата: {date_str}")
 
     def get_animals_by_coordinates(self, latitude, longitude, force_update=False):
         """Получает животных по координатам - пробуем оба метода"""
@@ -356,46 +405,50 @@ class AnimalFinder:
 
         return []
 
-    def _process_api_response_strict(self, records):
-        """Строгая фильтрация - принимаем только явных животных"""
+    def _process_api_response(self, records):
+        """Обрабатывает ответ от API с прогресс-баром и оптимизацией"""
         animal_data = []
+        rejected_records = []
 
-        print(f"🔍 Строгая фильтрация {len(records)} записей...")
+        total_records = len(records)
+        print(f"🔍 Анализируем {total_records} записей...")
 
-        for i, record in enumerate(records):
+        # Добавляем прогресс-бар
+        for i, record in enumerate(tqdm(records, desc="Обработка записей", unit="rec")):
+            # Показываем детали только для первых 3 записей
+            if i < 3:
+                print(f"\n📋 ЗАПИСЬ {i + 1}:")
+                print(f"   Научное название: {record.get('scientificName', 'N/A')}")
+                print(f"   Kingdom: {record.get('kingdom', 'N/A')}")
+                print(f"   Phylum: {record.get('phylum', 'N/A')}")
+                print(f"   Class: {record.get('class', 'N/A')}")
+
+            # Оптимизированная проверка на животных
             kingdom = record.get('kingdom', '').lower()
             phylum = record.get('phylum', '').lower()
             class_name = record.get('class', '').lower()
 
-            # СТРОГИЕ критерии для животных
-            is_definitely_animal = (
-                # Точное совпадение царства
-                    kingdom == 'animalia' or
-                    # Основные типы животных
-                    phylum in ['chordata', 'arthropoda', 'mollusca'] or
-                    # Основные классы животных
-                    class_name in [
-                        'mammalia', 'aves', 'reptilia', 'amphibia', 'actinopterygii',
-                        'insecta', 'arachnida', 'gastropoda', 'bivalvia', 'malacostraca'
-                    ]
-            )
-
-            # Явные признаки растений (исключаем)
-            is_definitely_plant = (
-                    kingdom == 'plantae' or
-                    phylum in ['magnoliophyta', 'tracheophyta', 'bryophyta'] or
-                    class_name in ['magnoliopsida', 'liliopsida', 'pinopsida']
-            )
-
-            if is_definitely_plant:
+            # Быстрая проверка - исключаем явные не-животные
+            if kingdom in ['plantae', 'fungi']:
+                rejected_records.append(('not_animal', record.get('scientificName')))
                 continue
 
-            if not is_definitely_animal:
+            # Проверяем признаки животных
+            is_animal = (
+                    kingdom == 'animalia' or
+                    phylum in ['chordata', 'arthropoda', 'mollusca'] or
+                    class_name in ['mammalia', 'aves', 'reptilia', 'amphibia', 'actinopterygii', 'insecta']
+            )
+
+            if not is_animal:
+                rejected_records.append(('not_animal', record.get('scientificName')))
                 continue
 
             # Если дошли сюда - это животное
             species_key = record.get('speciesKey')
-            common_name_ru = self._get_russian_common_name(species_key)
+
+            # Используем кэш для русских названий чтобы ускорить процесс
+            common_name_ru = self._get_russian_common_name_cached(species_key)
 
             animal_info = {
                 'scientific_name': record.get('scientificName', 'Не указано'),
@@ -419,7 +472,11 @@ class AnimalFinder:
             }
             animal_data.append(animal_info)
 
-        print(f"✅ После строгой фильтрации: {len(animal_data)} животных")
+        # Статистика отсева
+        print(f"\n📊 СТАТИСТИКА ФИЛЬТРАЦИИ:")
+        print(f"✅ Принято животных: {len(animal_data)}")
+        print(f"❌ Отклонено записей: {len(rejected_records)}")
+
         return animal_data
 
     def get_animals_by_coordinates_radius(self, latitude, longitude, radius_km=50, limit=1000):
@@ -528,78 +585,267 @@ class AnimalFinder:
         region_name_en = self.get_correct_region_name(region_name_ru)
         print(f"🎯 Используем название региона для GBIF: {region_name_en}")
 
+        # Нормализуем имя для файла
+        normalized_name = "".join(c for c in region_name_en if c.isalnum()).lower()
+
         # Проверяем, есть ли данные в локальном хранилище
-        if not force_update and self.data_manager.region_exists(region_name_en):
+        if not force_update and self.data_manager.region_exists(normalized_name):
             print(f"📁 Используем локальные данные для {region_name_ru}")
-            region_data = self.data_manager.get_region_data(region_name_en)
+            region_data = self.data_manager.get_region_data(normalized_name)
             if region_data:
-                # Переводим данные
-                translated_data = [self.translator.translate_animal_data(animal) for animal in region_data]
+                # Переводим данные с прогресс-баром
+                print("🔤 Перевод таксономии на русский...")
+                translated_data = []
+
+                with tqdm(total=len(region_data), desc="🔤 Перевод данных", unit="animal",
+                          bar_format='{l_bar}{bar:20}{r_bar}{bar:-20b}') as pbar:
+                    for animal in region_data:
+                        translated_data.append(self.translator.translate_animal_data(animal))
+                        pbar.update(1)
+
                 return translated_data
 
-        # Получаем данные через API
-        print(f"🌐 Запрашиваем данные через API для {region_name_ru} ({region_name_en})")
+        # Получаем все данные через API с пагинацией
+        print(f"🌐 Запрашиваем ВСЕ данные через API для {region_name_ru} ({region_name_en})")
 
-        # Сначала обычный поиск с большим лимитом
-        animal_data = self._fetch_from_api_large(region_name_en, region_name_ru, limit=2000)
-
-        # Если не нашли, пробуем поиск известных животных
-        if not animal_data:
-            print(f"🦌 Пробуем поиск известных животных...")
-            animal_data = self.search_known_russian_animals(region_name_en, limit=200)
+        animal_data = self._fetch_from_api_large(region_name_en, region_name_ru)
 
         if animal_data:
             # Переводим данные перед сохранением
-            translated_data = [self.translator.translate_animal_data(animal) for animal in animal_data]
+            print("🔤 Перевод таксономии на русский...")
+            translated_data = []
 
-            # Сохраняем данные
+            # Создаем прогресс-бар с известным общим количеством
+            with tqdm(total=len(animal_data), desc="🔤 Перевод данных", unit="animal",
+                      bar_format='{l_bar}{bar:20}{r_bar}{bar:-20b}') as pbar:
+                for animal in animal_data:
+                    translated_data.append(self.translator.translate_animal_data(animal))
+                    pbar.update(1)
+
+            # Сохраняем данные с нормализованным именем
             success = self.data_manager.save_region_data(region_name_en, region_name_ru, translated_data)
             if success:
-                print(f"💾 Данные сохранены для региона {region_name_ru}")
+                print(f"💾 Данные сохранены для региона {region_name_ru} (файл: {normalized_name}.json)")
             return translated_data
         else:
             print(f"❌ Не удалось получить данные для {region_name_ru}")
             return []
 
-    def _fetch_from_api_large(self, region_name_en, region_name_ru, limit=2000):
-        """Получает данные через GBIF API с большим лимитом"""
+    def _fetch_from_api_large(self, region_name_en, region_name_ru, batch_size=300):
+        """Получает все данные через GBIF API с пагинацией"""
         base_url = "https://api.gbif.org/v1"
 
-        # Параметры запроса с большим лимитом
+        all_animal_data = []
+        offset = 0
+        total_processed = 0
+        has_more_data = True
+        max_retries = 3  # Максимальное количество попыток повтора
+
+        print(f"🔗 Начинаем загрузку данных пачками по {batch_size} записей...")
+
+        # Получаем приблизительное общее количество
+        try:
+            count_response = requests.get(f"{base_url}/occurrence/search",
+                                          params={
+                                              'country': 'RU',
+                                              'stateProvince': region_name_en,
+                                              'kingdom': 'Animalia',
+                                              'limit': 0
+                                          },
+                                          timeout=30)
+            if count_response.status_code == 200:
+                total_estimate = count_response.json().get('count', 0)
+                print(f"📊 Приблизительно всего записей: {total_estimate}")
+            else:
+                total_estimate = 0
+                print(f"⚠️ Не удалось получить общее количество: {count_response.status_code}")
+        except Exception as e:
+            total_estimate = 0
+            print(f"⚠️ Ошибка при получении общего количества: {e}")
+
+        # Создаем прогресс-бар
+        pbar = tqdm(total=total_estimate, desc="📥 Загрузка данных", unit="rec",
+                    bar_format='{l_bar}{bar:20}{r_bar}{bar:-20b}')
+
+        while has_more_data:
+            # Параметры запроса с пагинацией
+            params = {
+                'country': 'RU',
+                'stateProvince': region_name_en,
+                'kingdom': 'Animalia',
+                'limit': batch_size,
+                'offset': offset
+            }
+
+            # Проверяем кэш для текущей пачки
+            cached_batch = self.data_manager.get_api_cache(params)
+            if cached_batch:
+                print(f"♻️ Используем кэшированную пачку {offset // batch_size + 1}")
+                all_animal_data.extend(cached_batch)
+                pbar.update(len(cached_batch))
+                offset += batch_size
+                continue
+
+            retry_count = 0
+            success = False
+
+            while retry_count < max_retries and not success:
+                try:
+                    print(f"\n📥 Загружаем пачку {offset // batch_size + 1}...")
+                    response = requests.get(f"{base_url}/occurrence/search", params=params, timeout=60)
+
+                    if response.status_code == 200:
+                        data = response.json()
+                        batch_records = data.get('results', [])
+
+                        if not batch_records:
+                            print("✅ Все данные загружены")
+                            has_more_data = False
+                            break
+
+                        # Обрабатываем текущую пачку
+                        animal_data_batch = self._process_api_response_batch(batch_records)
+                        all_animal_data.extend(animal_data_batch)
+
+                        total_processed += len(batch_records)
+                        pbar.update(len(batch_records))
+                        pbar.set_postfix({'животных': len(all_animal_data)})
+
+                        print(f"\n✅ Пачка {offset // batch_size + 1}: {len(animal_data_batch)} животных")
+
+                        # Сохраняем пачку в кэш
+                        self.data_manager.save_api_cache(params, animal_data_batch)
+
+                        # Проверяем, есть ли еще данные
+                        if len(batch_records) < batch_size:
+                            print("✅ Достигнут конец данных")
+                            has_more_data = False
+                        else:
+                            offset += batch_size
+
+                        success = True
+
+                    elif response.status_code == 503:
+                        retry_count += 1
+                        if retry_count < max_retries:
+                            wait_time = retry_count * 10  # Увеличиваем время ожидания
+                            print(
+                                f"⏸️ Сервер перегружен (503). Попытка {retry_count}/{max_retries} через {wait_time} сек...")
+                            time.sleep(wait_time)
+                        else:
+                            print("❌ Сервер постоянно возвращает ошибку 503. Прерываем загрузку.")
+                            has_more_data = False
+                            break
+
+                    else:
+                        print(f"❌ Ошибка API: {response.status_code}")
+                        has_more_data = False
+                        break
+
+                except requests.exceptions.Timeout:
+                    retry_count += 1
+                    if retry_count < max_retries:
+                        print(f"⏰ Таймаут. Попытка {retry_count}/{max_retries}...")
+                        time.sleep(5)
+                    else:
+                        print("❌ Превышено количество попыток при таймауте")
+                        has_more_data = False
+                        break
+
+                except Exception as e:
+                    print(f"❌ Неожиданная ошибка при загрузке пачки {offset // batch_size + 1}: {e}")
+                    has_more_data = False
+                    break
+
+            # Небольшая пауза между запросами даже при успехе
+            if success:
+                time.sleep(0.5)
+
+        pbar.close()
+        print(f"\n🎯 ИТОГО: обработано {total_processed} записей, найдено {len(all_animal_data)} животных")
+
+        return all_animal_data
+
+    def _process_api_response_batch(self, records):
+        """Быстрая обработка пачки записей с улучшенной фильтрацией"""
+        animal_data = []
+
+        for record in records:
+            # Быстрая проверка на животных
+            kingdom = record.get('kingdom', '').lower()
+            phylum = record.get('phylum', '').lower()
+            class_name = record.get('class', '').lower()
+
+            # Исключаем явные не-животные и неинтересные группы
+            if kingdom in ['plantae', 'fungi']:
+                continue
+
+            # Исключаем червей, насекомых и другие неинтересные группы
+            if any(unwanted in phylum.lower() for unwanted in ['annelida', 'nematoda', 'platyhelminthes']):
+                continue
+
+            if any(unwanted in class_name.lower() for unwanted in ['clitellata', 'insecta', 'arachnida', 'gastropoda']):
+                continue
+
+            # Проверяем признаки интересных животных
+            is_interesting_animal = (
+                    kingdom == 'animalia' and (
+                    phylum in ['chordata'] or  # Только хордовые
+                    class_name in ['mammalia', 'aves', 'reptilia', 'amphibia', 'actinopterygii']
+            # Только основные классы
+            )
+            )
+
+            if not is_interesting_animal:
+                continue
+
+            # Создаем запись животного
+            species_key = record.get('speciesKey')
+            common_name_ru = self._get_russian_common_name_cached(species_key)
+
+            animal_info = {
+                'scientific_name': record.get('scientificName', 'Не указано'),
+                'common_name': common_name_ru,
+                'kingdom': record.get('kingdom', 'Не указано'),
+                'phylum': record.get('phylum', 'Не указано'),
+                'class': record.get('class', 'Не указано'),
+                'order': record.get('order', 'Не указано'),
+                'family': record.get('family', 'Не указано'),
+                'genus': record.get('genus', 'Не указано'),
+                'species': record.get('species', 'Не указано'),
+                'decimalLatitude': record.get('decimalLatitude'),
+                'decimalLongitude': record.get('decimalLongitude'),
+                'locality': record.get('locality', 'Не указано'),
+                'stateProvince': record.get('stateProvince', 'Не указано'),
+                'country': record.get('country', 'Не указано'),
+                'eventDate': record.get('eventDate', 'Не указано'),
+                'basisOfRecord': record.get('basisOfRecord', 'Не указано'),
+                'speciesKey': species_key,
+                'record_id': record.get('key')
+            }
+            animal_data.append(animal_info)
+
+        return animal_data
+
+    def get_total_records_count(self, region_name_en):
+        """Получает общее количество записей для региона"""
+        base_url = "https://api.gbif.org/v1"
+
         params = {
             'country': 'RU',
             'stateProvince': region_name_en,
             'kingdom': 'Animalia',
-            'limit': limit
+            'limit': 0
         }
 
-        # Проверяем кэш
-        cached_data = self.data_manager.get_api_cache(params)
-        if cached_data:
-            print("♻️ Используем кэшированные данные API")
-            return cached_data
-
         try:
-            print(f"🔗 Отправляем запрос к GBIF API (лимит: {limit})...")
-            response = requests.get(f"{base_url}/occurrence/search", params=params, timeout=60)
+            response = requests.get(f"{base_url}/occurrence/search", params=params, timeout=30)
             if response.status_code == 200:
-                data = response.json()
-                print(f"📊 API вернул {data['count']} записей")
-
-                animal_data = self._process_api_response(data.get('results', []))
-
-                # Сохраняем в кэш
-                self.data_manager.save_api_cache(params, animal_data)
-                print(f"💾 Сохранено в кэш: {len(animal_data)} животных")
-
-                return animal_data
-            else:
-                print(f"❌ Ошибка API: {response.status_code}")
-                return []
-
+                return response.json().get('count', 0)
         except Exception as e:
-            print(f"❌ Ошибка при запросе к API: {e}")
-            return []
+            print(f"⚠️ Не удалось получить общее количество записей: {e}")
+
+        return 0
 
     def _fetch_from_api(self, region_name_en, region_name_ru):
         """Получает данные через GBIF API"""
@@ -952,6 +1198,214 @@ class AnimalFinder:
             if animal.get('eventDate') and animal['eventDate'] != 'Не указано':
                 print(f"   Дата наблюдения: {animal['eventDate']}")
 
+    def get_animals_combined(self, region_name_ru, force_update=False):
+        """Комбинированный поиск животных: GBIF + локальная база с фильтрацией"""
+        print(f"🎯 КОМБИНИРОВАННЫЙ ПОИСК ДЛЯ {region_name_ru}")
+
+        # 1. Пробуем получить данные из GBIF
+        gbif_animals = self.get_animals_by_region(region_name_ru, force_update)
+
+        # 2. Получаем животных из локальной базы данных
+        local_animals = self.animals_db.get_animals_by_region(region_name_ru)
+        print(f"📚 Локальная база: {len(local_animals)} животных")
+
+        # 3. Объединяем и убираем дубликаты
+        all_animals = self._merge_animal_data(gbif_animals, local_animals)
+
+        # 4. ПРИМЕНЯЕМ ФИЛЬТРАЦИЮ К ОБЪЕДИНЕННЫМ ДАННЫМ
+        filtered_animals = self.filter_animals_data(all_animals, min_count=1)
+
+        print(f"🎉 ИТОГО: {len(filtered_animals)} животных ({len(gbif_animals)} из GBIF + {len(local_animals)} из базы)")
+        return filtered_animals
+
+    def _merge_animal_data(self, gbif_animals, local_animals):
+        """Объединяет данные из GBIF и локальной базы"""
+        merged_animals = []
+        seen_species = set()
+
+        # Сначала добавляем животных из GBIF
+        for animal in gbif_animals:
+            species = animal.get('scientific_name')
+            if species and species not in seen_species:
+                merged_animals.append(animal)
+                seen_species.add(species)
+
+        # Затем добавляем животных из локальной базы (только тех, кого нет в GBIF)
+        for animal in local_animals:
+            species = animal.get('scientific_name')
+            if species and species not in seen_species:
+                # Добавляем недостающие поля для животных из базы данных
+                enhanced_animal = {
+                    'scientific_name': animal['scientific_name'],
+                    'common_name': animal['common_name'],
+                    'class_ru': animal.get('class_ru', 'Не указано'),
+                    'phylum_ru': animal.get('phylum_ru', 'Хордовые'),
+                    'order_ru': 'Не указано',
+                    'family_ru': 'Не указано',
+                    'genus_ru': 'Не указано',
+                    'source': 'local_db',
+                    'region': animal.get('region', 'Не указано')
+                }
+                merged_animals.append(enhanced_animal)
+                seen_species.add(species)
+
+        return merged_animals
+
+    def analyze_region_combined(self, region_name_ru):
+        """Улучшенный анализ с комбинированными данными и фильтрацией"""
+        animals = self.get_animals_combined(region_name_ru)
+
+        if not animals:
+            print(f"❌ Нет данных для региона {region_name_ru}")
+            return
+
+        # ФИЛЬТРУЕМ ДАННЫЕ - убираем редкие и неинформативные записи
+        filtered_animals = self.filter_animals_data(animals, min_count=2)
+
+        # Разделяем животных по источникам (после фильтрации)
+        gbif_animals = [a for a in filtered_animals if a.get('source') != 'local_db']
+        local_animals = [a for a in filtered_animals if a.get('source') == 'local_db']
+
+        print(f"\n{'=' * 60}")
+        print(f"🐾 КОМБИНИРОВАННЫЙ АНАЛИЗ ЖИВОТНЫХ В {region_name_ru.upper()}")
+        print(f"{'=' * 60}")
+
+        print(f"\n📊 ОБЩАЯ СТАТИСТИКА:")
+        print(f"Всего животных: {len(filtered_animals)}")
+        print(f"• Найдено в GBIF: {len(gbif_animals)}")
+        print(f"• Из базы данных: {len(local_animals)}")
+
+        if not filtered_animals:
+            print("🎯 После фильтрации не осталось значимых данных")
+            return
+
+        # Анализ по классам (только для отфильтрованных данных)
+        class_stats = {}
+        for animal in filtered_animals:
+            class_name = animal.get('class_ru', 'Не указано')
+            class_stats[class_name] = class_stats.get(class_name, 0) + 1
+
+        print(f"\n📈 РАСПРЕДЕЛЕНИЕ ПО КЛАССАМ:")
+        for class_name, count in sorted(class_stats.items(), key=lambda x: x[1], reverse=True):
+            percentage = (count / len(filtered_animals)) * 100
+            print(f"  {class_name}: {count} ({percentage:.1f}%)")
+
+        # Показываем примеры животных из разных источников
+        if gbif_animals:
+            print(f"\n🔍 ПРИМЕРЫ ИЗ GBIF:")
+            for animal in gbif_animals[:5]:
+                name = animal.get('common_name', animal['scientific_name'])
+                print(f"  • {name}")
+
+        if local_animals:
+            print(f"\n📚 ПОПУЛЯРНЫЕ ВИДЫ ИЗ БАЗЫ ДАННЫХ:")
+            for animal in local_animals[:8]:
+                print(f"  • {animal['common_name']} ({animal['scientific_name']})")
+
+    def filter_animals_data(self, animals, min_count=2, exclude_classes=None):
+        """Фильтрует данные о животных - убираем червей, пауков и неинтересные классы"""
+        if exclude_classes is None:
+            # Расширенный список исключаемых классов
+            exclude_classes = [
+                'Clitellata', 'Кольчатые черви', 'Олигохеты',  # Черви
+                'Паукообразные', 'Arachnida',  # Пауки
+                'Насекомые', 'Insecta',  # Насекомые
+                'Диплоподы', 'Многоножки',  # Многоножки
+                'Губки', 'Porifera',  # Губки
+                'Брюхоногие', 'Gastropoda',  # Улитки
+                'Двустворчатые', 'Bivalvia',  # Моллюски
+                'Коллемболы', 'Collembola',  # Ногохвостки
+                'Ракообразные', 'Crustacea',  # Раки
+                'Нематоды', 'Nematoda',  # Круглые черви
+                'Плоские черви', 'Platyhelminthes',  # Плоские черви
+                'Коловратки', 'Rotifera',  # Коловратки
+                'Тихоходки', 'Tardigrada',  # Тихоходки
+                'Мшанки', 'Bryozoa'  # Мшанки
+            ]
+
+        # Сначала группируем по видам и считаем количество
+        species_counts = {}
+        for animal in animals:
+            species = animal.get('scientific_name')
+            if species and species != 'Не указано':
+                species_counts[species] = species_counts.get(species, 0) + 1
+
+        # Фильтруем животных
+        filtered_animals = []
+        for animal in animals:
+            species = animal.get('scientific_name')
+            animal_class = animal.get('class_ru', animal.get('class', 'Не указано'))
+
+            # Проверяем критерии исключения
+            should_include = (
+                    species and
+                    species != 'Не указано' and
+                    species_counts.get(species, 0) >= min_count and
+                    animal_class not in exclude_classes and
+                    not self._is_uninformative_animal(animal) and
+                    not self._is_worm_or_insect(animal)  # Дополнительная проверка
+            )
+
+            if should_include:
+                filtered_animals.append(animal)
+
+        removed_count = len(animals) - len(filtered_animals)
+        if removed_count > 0:
+            print(f"🔍 Фильтрация: убрано {removed_count} незначимых записей (черви, пауки, насекомые и др.)")
+
+        return filtered_animals
+
+    def _is_worm_or_insect(self, animal):
+        """Дополнительная проверка на червей, насекомых и другие неинтересные группы"""
+        scientific_name = animal.get('scientific_name', '').lower()
+        common_name = animal.get('common_name', '').lower()
+        phylum = animal.get('phylum', '').lower()
+        animal_class = animal.get('class', '').lower()
+
+        # Признаки червей
+        worm_indicators = [
+            'clitellata', 'oligochaeta', 'enchytraeidae', 'annelida',
+            'nematoda', 'platyhelminthes', 'rotifera', 'tardigrada',
+            'червь', 'worm', 'нематод', 'коловратк'
+        ]
+
+        # Признаки насекомых и пауков
+        insect_indicators = [
+            'insecta', 'arachnida', 'diplopoda', 'crustacea',
+            'gastropoda', 'bivalvia', 'collembola', 'bryozoa',
+            'насеком', 'паук', 'моллюск', 'ракообразн'
+        ]
+
+        # Проверяем по разным полям
+        for field in [scientific_name, common_name, phylum, animal_class]:
+            if any(indicator in field for indicator in worm_indicators + insect_indicators):
+                return True
+
+        return False
+
+    def _is_uninformative_animal(self, animal):
+        """Проверяет, является ли животное неинформативным"""
+        scientific_name = animal.get('scientific_name', '').lower()
+        common_name = animal.get('common_name', '').lower()
+
+        # Признаки неинформативных записей
+        uninformative_indicators = [
+            # Слишком общие таксоны
+            'idae', 'inae', 'iformes', 'acea', 'oidea',
+            # Неопределенные названия
+            'sp.', 'spp.', 'unknown', 'unidentified', 'indet.',
+            # Лабораторные/домашние виды
+            'mus musculus', 'rattus norvegicus', 'drosophila',
+            # Ископаемые виды (часто имеют странные названия)
+            'ites', 'ensis', 'oides'
+        ]
+
+        # Проверяем классы, которые всегда исключаем
+        animal_class = animal.get('class_ru', '').lower()
+        if any(unwanted in animal_class for unwanted in ['насекомые', 'паукообразные', 'черви', 'моллюски']):
+            return True
+
+        return any(indicator in scientific_name for indicator in uninformative_indicators)
 
 # Основная программа
 def main():
@@ -988,7 +1442,7 @@ def main():
                 animals = finder.get_animals_by_coordinates(lat, lon)
                 if animals:
                     region_ru, region_en = finder.get_region_by_coordinates(lat, lon)
-                    finder.analyze_region_improved(region_ru)
+                    finder.analyze_region_combined(region_ru)
                     finder.show_detailed_animal_info_improved(animals)
                 else:
                     print("❌ Не удалось найти животных для данных координат")

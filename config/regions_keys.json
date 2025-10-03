@@ -1,9 +1,9 @@
 {
   "regions": {
     "Amur": {
-      "name_ru": "Амурская",
+      "name_ru": "Amur",
       "data_file": "amur.json",
-      "last_updated": "2025-10-02T12:11:26.372008"
+      "last_updated": "2025-10-03T10:00:13.863480"
     },
     "Krasnodar": {
       "name_ru": "Krasnodar",
@@ -49,7 +49,37 @@
       "name_ru": "Забайкальский край",
       "data_file": "zabaykalsky krai.json",
       "last_updated": "2025-10-03T08:59:31.946160"
+    },
+    "Chechnya": {
+      "name_ru": "Chechnya",
+      "data_file": "chechnya.json",
+      "last_updated": "2025-10-03T09:55:30.082889"
+    },
+    "Yaroslavl": {
+      "name_ru": "Yaroslavl",
+      "data_file": "yaroslavl.json",
+      "last_updated": "2025-10-03T10:11:09.663421"
+    },
+    "Vladimir": {
+      "name_ru": "Vladimir",
+      "data_file": "vladimir.json",
+      "last_updated": "2025-10-03T10:19:47.953947"
+    },
+    "Udmurtia": {
+      "name_ru": "Udmurtia",
+      "data_file": "udmurtia.json",
+      "last_updated": "2025-10-03T10:30:41.354614"
+    },
+    "amur": {
+      "name_ru": "Amur",
+      "data_file": "amur.json",
+      "last_updated": "2025-10-03T11:21:48.128470"
+    },
+    "zabaykalskykrai": {
+      "name_ru": "Zabaykalsky",
+      "data_file": "zabaykalskykrai.json",
+      "last_updated": "2025-10-03T12:54:48.988098"
     }
   },
-  "last_updated": "2025-10-03T08:59:31.946164"
+  "last_updated": "2025-10-03T12:54:48.988103"
 }

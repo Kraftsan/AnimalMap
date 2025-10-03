@@ -2,12 +2,14 @@ import requests
 import json
 import os
 from datetime import datetime, timedelta
+from utils.russian_animals_db import RussianAnimalsDB
 
 
 class TaxonomyTranslator:
     def __init__(self, cache_dir="data/cache"):
         self.cache_dir = cache_dir
         self.translations_cache = os.path.join(cache_dir, "taxonomy_translations.json")
+        self.animals_db = RussianAnimalsDB()  # Добавляем базу данных
         os.makedirs(cache_dir, exist_ok=True)
         self._load_translations()
 
@@ -177,7 +179,7 @@ class TaxonomyTranslator:
         return taxon_name
 
     def translate_animal_data(self, animal_data):
-        """Переводит все таксоны в данных о животном"""
+        """Переводит все таксоны в данных о животном с улучшением названий"""
         translated = animal_data.copy()
 
         # Переводим основные таксоны
@@ -193,5 +195,13 @@ class TaxonomyTranslator:
         for field, rank in taxon_fields.items():
             if field in translated and translated[field]:
                 translated[f'{field}_ru'] = self.translate_taxon(translated[field], rank)
+
+        # Улучшаем русское название через базу данных
+        scientific_name = translated.get('scientific_name')
+        if scientific_name and (not translated.get('common_name') or translated.get('common_name') == 'Не указано'):
+            common_name = self.animals_db.get_common_name(scientific_name)
+            if common_name:
+                translated['common_name'] = common_name
+                translated['name_source'] = 'local_db'
 
         return translated

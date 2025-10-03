@@ -4,13 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79e76dbb-cfab-48b8-8935-1c06fe890387" name="Changes" comment="">
+    <list default="true" id="79e76dbb-cfab-48b8-8935-1c06fe890387" name="Changes" comment="Доработали поиск по координатам">
+      <change afterPath="$PROJECT_DIR$/utils/russian_animals_db.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/coordinates_regions.json" beforeDir="false" afterPath="$PROJECT_DIR$/config/coordinates_regions.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/regions_keys.json" beforeDir="false" afterPath="$PROJECT_DIR$/config/regions_keys.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/cache/api_cache.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/cache/api_cache.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/cache/taxonomy_translations.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/cache/taxonomy_translations.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/regions/amur.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/regions/zabaykalsky krai.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/data_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/data_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/taxonomy_translator.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/taxonomy_translator.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +60,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
+    "run.code.analysis.last.selected.profile": "aDefault",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
@@ -126,6 +131,19 @@
       <option name="presentableId" value="Default" />
       <updated>1759367336922</updated>
     </task>
+    <task id="LOCAL-00001" summary="Доработали поиск по координатам">
+      <option name="closed" value="true" />
+      <created>1759449724720</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1759449724720</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Доработали поиск по координатам" />
+    <option name="LAST_COMMIT_MESSAGE" value="Доработали поиск по координатам" />
   </component>
 </project>
