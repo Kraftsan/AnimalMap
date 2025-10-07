@@ -1302,25 +1302,26 @@ class AnimalFinder:
             for animal in local_animals[:8]:
                 print(f"  • {animal['common_name']} ({animal['scientific_name']})")
 
-    def filter_animals_data(self, animals, min_count=2, exclude_classes=None):
-        """Фильтрует данные о животных - убираем червей, пауков и неинтересные классы"""
+    def filter_animals_data(self, animals, min_count=1, exclude_classes=None):
+        """Фильтрует данные о животных - убираем неинтересные классы, но оставляем млекопитающих, птиц и т.д."""
         if exclude_classes is None:
-            # Расширенный список исключаемых классов
+            # Только самые неинтересные классы
             exclude_classes = [
-                'Clitellata', 'Кольчатые черви', 'Олигохеты',  # Черви
-                'Паукообразные', 'Arachnida',  # Пауки
-                'Насекомые', 'Insecta',  # Насекомые
-                'Диплоподы', 'Многоножки',  # Многоножки
-                'Губки', 'Porifera',  # Губки
-                'Брюхоногие', 'Gastropoda',  # Улитки
-                'Двустворчатые', 'Bivalvia',  # Моллюски
-                'Коллемболы', 'Collembola',  # Ногохвостки
-                'Ракообразные', 'Crustacea',  # Раки
-                'Нематоды', 'Nematoda',  # Круглые черви
-                'Плоские черви', 'Platyhelminthes',  # Плоские черви
-                'Коловратки', 'Rotifera',  # Коловратки
-                'Тихоходки', 'Tardigrada',  # Тихоходки
-                'Мшанки', 'Bryozoa'  # Мшанки
+                'Clitellata', 'Кольчатые черви', 'Олигохеты',
+                'Паукообразные', 'Arachnida',
+                'Насекомые', 'Insecta',
+                'Диплоподы', 'Многоножки',
+                'Губки', 'Porifera',
+                'Брюхоногие', 'Gastropoda',
+                'Двустворчатые', 'Bivalvia',
+                'Коллемболы', 'Collembola',
+                'Ракообразные', 'Crustacea',
+                'Нематоды', 'Nematoda',
+                'Плоские черви', 'Platyhelminthes',
+                'Коловратки', 'Rotifera',
+                'Тихоходки', 'Tardigrada',
+                'Мшанки', 'Bryozoa',
+                'Жаброногие', 'Branchiopoda'
             ]
 
         # Сначала группируем по видам и считаем количество
@@ -1342,8 +1343,7 @@ class AnimalFinder:
                     species != 'Не указано' and
                     species_counts.get(species, 0) >= min_count and
                     animal_class not in exclude_classes and
-                    not self._is_uninformative_animal(animal) and
-                    not self._is_worm_or_insect(animal)  # Дополнительная проверка
+                    self._is_informative_animal_record(animal)  # Используем улучшенную проверку
             )
 
             if should_include:
@@ -1351,7 +1351,7 @@ class AnimalFinder:
 
         removed_count = len(animals) - len(filtered_animals)
         if removed_count > 0:
-            print(f"🔍 Фильтрация: убрано {removed_count} незначимых записей (черви, пауки, насекомые и др.)")
+            print(f"🔍 Фильтрация: убрано {removed_count} незначимых записей")
 
         return filtered_animals
 
@@ -1407,6 +1407,132 @@ class AnimalFinder:
 
         return any(indicator in scientific_name for indicator in uninformative_indicators)
 
+    def show_animals_by_class(self, region_name_ru, class_name):
+        """Показывает всех животных определенного класса в регионе"""
+        animals = self.get_animals_combined(region_name_ru)
+
+        if not animals:
+            print(f"❌ Нет данных для региона {region_name_ru}")
+            return []
+
+        # Фильтруем животных по классу и убираем неинформативные записи
+        class_animals = []
+        for animal in animals:
+            animal_class = animal.get('class_ru', animal.get('class', 'Не указано'))
+
+            # Нормализуем названия классов
+            normalized_class = self._normalize_class_name(animal_class)
+            normalized_target = self._normalize_class_name(class_name)
+
+            if normalized_class == normalized_target:
+                # Пропускаем неинформативные записи (названия классов вместо видов)
+                if self._is_informative_animal_record(animal):
+                    class_animals.append(animal)
+
+        if not class_animals:
+            print(f"❌ В регионе {region_name_ru} не найдены животные класса '{class_name}'")
+            return []
+
+        # Убираем дубликаты по научному названию и считаем количество находок
+        species_counts = {}
+        for animal in class_animals:
+            sci_name = animal['scientific_name']
+            if sci_name not in species_counts:
+                species_counts[sci_name] = {
+                    'animal': animal,
+                    'count': 1
+                }
+            else:
+                species_counts[sci_name]['count'] += 1
+
+        unique_list = [data['animal'] for data in species_counts.values()]
+        count_data = {sci_name: data['count'] for sci_name, data in species_counts.items()}
+
+        print(f"\n{'=' * 60}")
+        print(f"🐾 {class_name.upper()} В {region_name_ru.upper()} ОБЛАСТИ")
+        print(f"{'=' * 60}")
+        print(f"📊 Найдено уникальных видов: {len(unique_list)}")
+        print(f"{'=' * 60}")
+
+        # Сортируем по русскому названию
+        sorted_animals = sorted(unique_list, key=lambda x: x.get('common_name', x['scientific_name']))
+
+        for i, animal in enumerate(sorted_animals, 1):
+            common_name = animal.get('common_name', 'Не указано')
+            scientific_name = animal['scientific_name']
+            count = count_data.get(scientific_name, 1)
+
+            # Пропускаем записи, которые являются названиями классов, а не видов
+            if scientific_name.lower() in ['mammalia', 'aves', 'reptilia', 'amphibia']:
+                continue
+
+            print(f"\n{i}. {common_name}")
+            print(f"   🧬 Научное название: {scientific_name}")
+            print(f"   📊 Находок в регионе: {count}")
+
+            # Дополнительная информация
+            if animal.get('order_ru') and animal['order_ru'] != 'Не указано':
+                print(f"   📋 Отряд: {animal['order_ru']}")
+            if animal.get('family_ru') and animal['family_ru'] != 'Не указано':
+                print(f"   👨‍👩‍👧‍👦 Семейство: {animal['family_ru']}")
+
+            # Источник данных
+            source = "📚 База данных" if animal.get('source') == 'local_db' else "🌐 GBIF"
+            print(f"   {source}")
+
+        return unique_list
+
+    def get_available_classes(self, region_name_ru):
+        """Получает список доступных классов животных в регионе"""
+        animals = self.get_animals_combined(region_name_ru)
+
+        if not animals:
+            return []
+
+        classes = set()
+        for animal in animals:
+            animal_class = animal.get('class_ru', animal.get('class', 'Не указано'))
+            if animal_class and animal_class != 'Не указано' and self._is_informative_animal_record(animal):
+                # Нормализуем названия классов
+                normalized_class = self._normalize_class_name(animal_class)
+                classes.add(normalized_class.title())  # Делаем первую букву заглавной
+
+        return sorted(list(classes))
+
+    def _normalize_class_name(self, class_name):
+        """Нормализует названия классов для сравнения"""
+        normalization_map = {
+            'амфибии': 'земноводные',
+            'рептилии': 'пресмыкающиеся',
+            'mammalia': 'млекопитающие',
+            'aves': 'птицы',
+            'reptilia': 'пресмыкающиеся',
+            'amphibia': 'земноводные'
+        }
+
+        normalized = class_name.lower().strip()
+        return normalization_map.get(normalized, normalized)
+
+    def _is_informative_animal_record(self, animal):
+        """Проверяет, является ли запись информативной (конкретным видом, а не классом)"""
+        scientific_name = animal.get('scientific_name', '').lower()
+
+        # Исключаем названия классов и слишком общие таксоны
+        excluded_names = [
+            'mammalia', 'aves', 'reptilia', 'amphibia', 'actinopterygii',
+            'animalia', 'chordata', 'vertebrata', 'metazoa'
+        ]
+
+        # Исключаем записи без видового названия
+        if not scientific_name or scientific_name in excluded_names:
+            return False
+
+        # Проверяем, что это вероятно видовое название (содержит пробел или специфические окончания)
+        if ' ' in scientific_name or any(scientific_name.endswith(ending) for ending in ['us', 'a', 'is', 'ensis']):
+            return True
+
+        return False
+
 # Основная программа
 def main():
     finder = AnimalFinder()
@@ -1425,10 +1551,11 @@ def main():
         print("\nВыберите режим:")
         print("1. Поиск по координатам")
         print("2. Поиск по названию региона")
-        print("3. Обновить статистику регионов")
-        print("4. Выход")
+        print("3. Показать животных конкретного класса")
+        print("4. Обновить статистику регионов")
+        print("5. Выход")
 
-        choice = input("\nВаш выбор (1-4): ").strip()
+        choice = input("\nВаш выбор (1-5): ").strip()
 
         if choice == '1':
             # Режим поиска по координатам
@@ -1463,11 +1590,42 @@ def main():
                 print(f"❌ Не удалось найти животных для региона {region_input}")
 
         elif choice == '3':
+            # Новый режим: животные конкретного класса
+            print(f"\n💡 Доступные регионы: {', '.join(available_regions)}")
+            region_input = input("Введите название региона: ").strip()
+
+            # Получаем доступные классы для этого региона
+            available_classes = finder.get_available_classes(region_input)
+
+            if not available_classes:
+                print(f"❌ Нет данных о животных в регионе {region_input}")
+                continue
+
+            print(f"\n🎯 ДОСТУПНЫЕ КЛАССЫ ЖИВОТНЫХ В {region_input.upper()}:")
+            for i, class_name in enumerate(available_classes, 1):
+                print(f"{i}. {class_name}")
+
+            try:
+                class_choice = input("\nВыберите номер класса: ").strip()
+                if class_choice.isdigit():
+                    class_index = int(class_choice) - 1
+                    if 0 <= class_index < len(available_classes):
+                        selected_class = available_classes[class_index]
+                        finder.show_animals_by_class(region_input, selected_class)
+                    else:
+                        print("❌ Неверный номер класса")
+                else:
+                    # Позволяем ввести название класса напрямую
+                    finder.show_animals_by_class(region_input, class_choice)
+            except Exception as e:
+                print(f"❌ Ошибка: {e}")
+
+        elif choice == '4':
             # Обновить статистику
             finder.show_regions_statistics()
             available_regions = finder.get_available_regions_list()
 
-        elif choice == '4':
+        elif choice == '5':
             print("👋 До свидания!")
             break
 

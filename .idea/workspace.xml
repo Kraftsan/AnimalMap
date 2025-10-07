@@ -4,16 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79e76dbb-cfab-48b8-8935-1c06fe890387" name="Changes" comment="Доработали поиск по координатам">
-      <change afterPath="$PROJECT_DIR$/utils/russian_animals_db.py" afterDir="false" />
+    <list default="true" id="79e76dbb-cfab-48b8-8935-1c06fe890387" name="Changes" comment="Парсер готов с распределением в json">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/regions_keys.json" beforeDir="false" afterPath="$PROJECT_DIR$/config/regions_keys.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/cache/api_cache.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/cache/api_cache.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/cache/taxonomy_translations.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/cache/taxonomy_translations.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/regions/amur.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/regions/zabaykalsky krai.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/regions/amur.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/regions/amur.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/data_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/data_manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/taxonomy_translator.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/taxonomy_translator.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,18 +27,18 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Kraftsan"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Kraftsan&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Kraftsan/AnimalMap.git",
-    "accountId": "d55abf13-a03a-4de7-97f9-b6bc61fd404e"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Kraftsan/AnimalMap.git&quot;,
+    &quot;accountId&quot;: &quot;d55abf13-a03a-4de7-97f9-b6bc61fd404e&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -52,18 +47,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.index.executor": "Run",
-    "Python.main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "run.code.analysis.last.selected.profile": "aDefault",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.index.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Python.main">
     <configuration name="index" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="AnimalMap" />
@@ -139,11 +134,20 @@
       <option name="project" value="LOCAL" />
       <updated>1759449724720</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Парсер готов с распределением в json">
+      <option name="closed" value="true" />
+      <created>1759463922225</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1759463922225</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Доработали поиск по координатам" />
-    <option name="LAST_COMMIT_MESSAGE" value="Доработали поиск по координатам" />
+    <MESSAGE value="Парсер готов с распределением в json" />
+    <option name="LAST_COMMIT_MESSAGE" value="Парсер готов с распределением в json" />
   </component>
 </project>
