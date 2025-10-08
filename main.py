@@ -14,16 +14,57 @@ class AnimalFinder:
         self.translator = TaxonomyTranslator()
         self.animals_db = RussianAnimalsDB()
         self.common_name_cache = {}
-        self.region_translations = {
-            'Амурская': 'Amur',
-            'Московская': 'Moscow',
-            'Ленинградская': 'Leningrad',
-            'Краснодарская': 'Krasnodar',
-            'Новосибирская': 'Novosibirsk',
-            'Брянская': 'Bryansk',
-            'Нижегородская': 'Nizhny Novgorod',
-            'Татарстан': 'Tatarstan'
-        }
+
+    def show_all_regions_list(self):
+        """Показывает полный список всех регионов России"""
+        print("\n" + "=" * 80)
+        print("🗺️  ПОЛНЫЙ СПИСОК РЕГИОНОВ РОССИИ")
+        print("=" * 80)
+
+        # Получаем сгруппированные регионы из DataManager
+        regions_by_type = self.data_manager.get_regions_by_type()
+        all_regions = self.data_manager.get_all_regions_list()
+
+        print(f"Всего регионов: {len(all_regions)}")
+        print()
+
+        # Показываем регионы по типам
+        for region_type, regions in regions_by_type.items():
+            if regions:  # Показываем только непустые группы
+                print(f"📌 {region_type.upper()} ({len(regions)}):")
+                for i, region in enumerate(regions, 1):
+                    english_name = self.data_manager.russian_to_english.get(region, 'N/A')
+                    print(f"   {i:2d}. {region:<35} → {english_name}")
+                print()
+
+    def show_available_regions_with_data(self):
+        """Показывает регионы, для которых есть данные в системе"""
+        print("\n" + "=" * 80)
+        print("📊 РЕГИОНЫ С ДАННЫМИ В СИСТЕМЕ")
+        print("=" * 80)
+
+        # Получаем регионы из файла ключей (те, для которых уже собраны данные)
+        saved_regions = self.data_manager.get_all_regions()
+
+        if not saved_regions:
+            print("❌ В системе пока нет данных ни по одному региону")
+            return []
+
+        print("Регионы с сохраненными данными:")
+        print("-" * 50)
+
+        available_with_data = []
+        for region_en, region_info in saved_regions.items():
+            region_data = self.data_manager.get_region_data(region_en)
+            if region_data:
+                region_name_ru = region_info.get('name_ru', region_en)
+                record_count = len(region_data)
+                species_count = len(set([a['scientific_name'] for a in region_data]))
+
+                print(f"✅ {region_name_ru:<25} - {record_count:4} записей, {species_count:3} видов")
+                available_with_data.append(region_name_ru)
+
+        return available_with_data
 
     def get_region_by_coordinates(self, latitude, longitude):
         """Определяет регион по координатам"""
@@ -1540,22 +1581,17 @@ def main():
     print("🐾 СИСТЕМА ПОИСКА ЖИВОТНЫХ ПО КООРДИНАТАМ")
     print("=" * 50)
 
-    # Показываем статистику сохраненных регионов
-    finder.show_regions_statistics()
-
-    # Получаем доступные регионы
-    available_regions = finder.get_available_regions_list()
-
     while True:
-        print(f"\nДОСТУПНЫЕ РЕГИОНЫ: {', '.join(available_regions)}")
-        print("\nВыберите режим:")
+        print(f"\nВыберите режим:")
         print("1. Поиск по координатам")
         print("2. Поиск по названию региона")
         print("3. Показать животных конкретного класса")
-        print("4. Обновить статистику регионов")
-        print("5. Выход")
+        print("4. Показать ВСЕ регионы России")
+        print("5. Показать регионы с данными в системе")
+        print("6. Обновить статистику регионов")
+        print("7. Выход")
 
-        choice = input("\nВаш выбор (1-5): ").strip()
+        choice = input("\nВаш выбор (1-7): ").strip()
 
         if choice == '1':
             # Режим поиска по координатам
@@ -1621,11 +1657,18 @@ def main():
                 print(f"Ошибка: {e}")
 
         elif choice == '4':
-            # Обновить статистику
-            finder.show_regions_statistics()
-            available_regions = finder.get_available_regions_list()
+            # Показать все регионы России
+            finder.show_all_regions_list()
 
         elif choice == '5':
+            # Показать регионы с данными
+            available_regions = finder.show_available_regions_with_data()
+
+        elif choice == '6':
+            # Обновить статистику
+            finder.show_regions_statistics()
+
+        elif choice == '7':
             print("👋 До свидания!")
             break
 

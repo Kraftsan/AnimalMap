@@ -27,6 +27,137 @@ class DataManager:
         # Инициализируем геокодер
         self.geolocator = Nominatim(user_agent="animal_map_app")
 
+        self.russian_to_english = self._get_regions_mapping()
+
+    def _get_regions_mapping(self):
+        """Возвращает словарь соответствия русских и английских названий регионов"""
+        return {
+            'Республика Адыгея': 'Adygea',
+            'Республика Алтай': 'Altai',
+            'Алтайский край': 'Altai Krai',
+            'Амурская область': 'Amur',
+            'Архангельская область': 'Arkhangelsk',
+            'Астраханская область': 'Astrakhan',
+            'Республика Башкортостан': 'Bashkortostan',
+            'Белгородская область': 'Belgorod',
+            'Брянская область': 'Bryansk',
+            'Республика Бурятия': 'Buryatia',
+            'Чеченская Республика': 'Chechnya',
+            'Челябинская область': 'Chelyabinsk',
+            'Чукотский автономный округ': 'Chukotka',
+            'Республика Крым': 'Crimea',
+            'Республика Дагестан': 'Dagestan',
+            'Республика Ингушетия': 'Ingushetia',
+            'Иркутская область': 'Irkutsk',
+            'Ивановская область': 'Ivanovo',
+            'Еврейская автономная область': 'Jewish',
+            'Кабардино-Балкарская Республика': 'Kabardino-Balkaria',
+            'Калининградская область': 'Kaliningrad',
+            'Республика Калмыкия': 'Kalmykia',
+            'Калужская область': 'Kaluga',
+            'Камчатский край': 'Kamchatka',
+            'Карачаево-Черкесская Республика': 'Karachay-Cherkessia',
+            'Республика Карелия': 'Karelia',
+            'Кемеровская область': 'Kemerovo',
+            'Хабаровский край': 'Khabarovsk',
+            'Республика Хакасия': 'Khakassia',
+            'Ханты-Мансийский автономный округ — Югра': 'Khanty-Mansi',
+            'Кировская область': 'Kirov',
+            'Коми Республика': 'Komi',
+            'Костромская область': 'Kostroma',
+            'Краснодарский край': 'Krasnodar',
+            'Красноярский край': 'Krasnoyarsk',
+            'Курганская область': 'Kurgan',
+            'Курская область': 'Kursk',
+            'Ленинградская область': 'Leningrad',
+            'Липецкая область': 'Lipetsk',
+            'Магаданская область': 'Magadan',
+            'Республика Марий Эл': 'Mari El',
+            'Республика Мордовия': 'Mordovia',
+            'Московская область': 'Moscow',
+            'Москва': 'Moscow City',
+            'Мурманская область': 'Murmansk',
+            'Ненецкий автономный округ': 'Nenets',
+            'Нижегородская область': 'Nizhny Novgorod',
+            'Новгородская область': 'Novgorod',
+            'Новосибирская область': 'Novosibirsk',
+            'Омская область': 'Omsk',
+            'Оренбургская область': 'Orenburg',
+            'Орловская область': 'Oryol',
+            'Пензенская область': 'Penza',
+            'Пермский край': 'Perm',
+            'Приморский край': 'Primorsky',
+            'Псковская область': 'Pskov',
+            'Ростовская область': 'Rostov',
+            'Рязанская область': 'Ryazan',
+            'Санкт-Петербург': 'Saint Petersburg',
+            'Республика Саха (Якутия)': 'Sakha',
+            'Сахалинская область': 'Sakhalin',
+            'Самарская область': 'Samara',
+            'Саратовская область': 'Saratov',
+            'Республика Северная Осетия — Алания': 'North Ossetia',
+            'Смоленская область': 'Smolensk',
+            'Ставропольский край': 'Stavropol',
+            'Свердловская область': 'Sverdlovsk',
+            'Тамбовская область': 'Tambov',
+            'Республика Татарстан': 'Tatarstan',
+            'Томская область': 'Tomsk',
+            'Тульская область': 'Tula',
+            'Республика Тыва': 'Tuva',
+            'Тверская область': 'Tver',
+            'Тюменская область': 'Tyumen',
+            'Удмуртская Республика': 'Udmurtia',
+            'Ульяновская область': 'Ulyanovsk',
+            'Владимирская область': 'Vladimir',
+            'Волгоградская область': 'Volgograd',
+            'Вологодская область': 'Vologda',
+            'Воронежская область': 'Voronezh',
+            'Ямало-Ненецкий автономный округ': 'Yamalo-Nenets',
+            'Ярославская область': 'Yaroslavl',
+            'Забайкальский край': 'Zabaykalsky',
+            'Донецкая Народная Республика': 'Donetsk',
+            'Луганская Народная Республика': 'Luhansk',
+            'Херсонская область': 'Kherson',
+            'Запорожская область': 'Zaporozhye',
+            'Севастополь': 'Sevastopol'
+        }
+
+    def get_all_regions_list(self):
+        """Возвращает полный список всех регионов России"""
+        return list(self.russian_to_english.keys())
+
+    def get_regions_by_type(self):
+        """Группирует регионы по типам"""
+        republics = []
+        krais = []
+        oblasts = []
+        autonomous_okrugs = []
+        cities = []
+        other = []
+
+        for region_ru in self.russian_to_english.keys():
+            if 'Республика' in region_ru:
+                republics.append(region_ru)
+            elif 'край' in region_ru.lower():
+                krais.append(region_ru)
+            elif 'область' in region_ru:
+                oblasts.append(region_ru)
+            elif 'автономный округ' in region_ru:
+                autonomous_okrugs.append(region_ru)
+            elif region_ru in ['Москва', 'Санкт-Петербург', 'Севастополь']:
+                cities.append(region_ru)
+            else:
+                other.append(region_ru)
+
+        return {
+            'Республики': sorted(republics),
+            'Края': sorted(krais),
+            'Области': sorted(oblasts),
+            'Автономные округа': sorted(autonomous_okrugs),
+            'Города федерального значения': sorted(cities),
+            'Другие': sorted(other)
+        }
+
     def _init_files(self):
         """Инициализация необходимых файлов"""
         # Файл ключей регионов
@@ -131,99 +262,8 @@ class DataManager:
 
     def _translate_region_to_english(self, region_name_ru):
         """Переводит название региона на английский для GBIF"""
-        russian_to_english = {
-            'Республика Адыгея': 'Adygea',
-            'Республика Алтай': 'Altai',
-            'Алтайский край': 'Altai Krai',
-            'Амурская область': 'Amur',
-            'Архангельская область': 'Arkhangelsk',
-            'Астраханская область': 'Astrakhan',
-            'Республика Башкортостан': 'Bashkortostan',
-            'Белгородская область': 'Belgorod',
-            'Брянская область': 'Bryansk',
-            'Республика Бурятия': 'Buryatia',
-            'Чеченская Республика': 'Chechnya',
-            'Челябинская область': 'Chelyabinsk',
-            'Чукотский автономный округ': 'Chukotka',
-            'Республика Крым': 'Crimea',
-            'Республика Дагестан': 'Dagestan',
-            'Республика Ингушетия': 'Ingushetia',
-            'Иркутская область': 'Irkutsk',
-            'Ивановская область': 'Ivanovo',
-            'Еврейская автономная область': 'Jewish',
-            'Кабардино-Балкарская Республика': 'Kabardino-Balkaria',
-            'Калининградская область': 'Kaliningrad',
-            'Республика Калмыкия': 'Kalmykia',
-            'Калужская область': 'Kaluga',
-            'Камчатский край': 'Kamchatka',
-            'Карачаево-Черкесская Республика': 'Karachay-Cherkessia',
-            'Республика Карелия': 'Karelia',
-            'Кемеровская область': 'Kemerovo',
-            'Хабаровский край': 'Khabarovsk',
-            'Республика Хакасия': 'Khakassia',
-            'Ханты-Мансийский автономный округ — Югра': 'Khanty-Mansi',
-            'Кировская область': 'Kirov',
-            'Коми Республика': 'Komi',
-            'Костромская область': 'Kostroma',
-            'Краснодарский край': 'Krasnodar',
-            'Красноярский край': 'Krasnoyarsk',
-            'Курганская область': 'Kurgan',
-            'Курская область': 'Kursk',
-            'Ленинградская область': 'Leningrad',
-            'Липецкая область': 'Lipetsk',
-            'Магаданская область': 'Magadan',
-            'Республика Марий Эл': 'Mari El',
-            'Республика Мордовия': 'Mordovia',
-            'Московская область': 'Moscow',
-            'Москва': 'Moscow City',
-            'Мурманская область': 'Murmansk',
-            'Ненецкий автономный округ': 'Nenets',
-            'Нижегородская область': 'Nizhny Novgorod',
-            'Новгородская область': 'Novgorod',
-            'Новосибирская область': 'Novosibirsk',
-            'Омская область': 'Omsk',
-            'Оренбургская область': 'Orenburg',
-            'Орловская область': 'Oryol',
-            'Пензенская область': 'Penza',
-            'Пермский край': 'Perm',
-            'Приморский край': 'Primorsky',
-            'Псковская область': 'Pskov',
-            'Ростовская область': 'Rostov',
-            'Рязанская область': 'Ryazan',
-            'Санкт-Петербург': 'Saint Petersburg',
-            'Республика Саха (Якутия)': 'Sakha',
-            'Сахалинская область': 'Sakhalin',
-            'Самарская область': 'Samara',
-            'Саратовская область': 'Saratov',
-            'Республика Северная Осетия — Алания': 'North Ossetia',
-            'Смоленская область': 'Smolensk',
-            'Ставропольский край': 'Stavropol',
-            'Свердловская область': 'Sverdlovsk',
-            'Тамбовская область': 'Tambov',
-            'Республика Татарстан': 'Tatarstan',
-            'Томская область': 'Tomsk',
-            'Тульская область': 'Tula',
-            'Республика Тыва': 'Tuva',
-            'Тверская область': 'Tver',
-            'Тюменская область': 'Tyumen',
-            'Удмуртская Республика': 'Udmurtia',
-            'Ульяновская область': 'Ulyanovsk',
-            'Владимирская область': 'Vladimir',
-            'Волгоградская область': 'Volgograd',
-            'Вологодская область': 'Vologda',
-            'Воронежская область': 'Voronezh',
-            'Ямало-Ненецкий автономный округ': 'Yamalo-Nenets',
-            'Ярославская область': 'Yaroslavl',
-            'Забайкальский край': 'Zabaykalsky',
-            'Донецкая Народная Республика': 'Donetsk',
-            'Луганская Народная Республика': 'Luhansk',
-            'Херсонская область': 'Kherson',
-            'Запорожская область': 'Zaporozhye',
-            'Севастополь': 'Sevastopol'
-        }
-
-        # Если точного совпадения нет, ищем частичное
-        for ru_name, en_name in russian_to_english.items():
+        # Используем публичный словарь
+        for ru_name, en_name in self.russian_to_english.items():
             if region_name_ru in ru_name or ru_name in region_name_ru:
                 return en_name
 
