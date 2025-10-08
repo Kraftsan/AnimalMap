@@ -5,26 +5,29 @@
 ## 📁 Структура проекта
 
 AnimalMap/
+```
+AnimalMap/
 ├── 📊 data/
-│ ├── regions/ # Данные по регионам в JSON
-│ │ ├── amur.json
-│ │ ├── krasnodar.json
-│ │ └── ...
-│ ├── cache/
-│ │ ├── api_cache.json # Кэш API запросов
-│ │ └── taxonomy_translations.json # Кэш переводов таксономии
-│ └── russian_animals.json # База русских названий животных
+│   ├── regions/                 # Данные по регионам в JSON
+│   │   ├── amur.json
+│   │   ├── krasnodar.json
+│   │   └── ...
+│   ├── cache/
+│   │   ├── api_cache.json       # Кэш API запросов
+│   │   └── taxonomy_translations.json  # Кэш переводов таксономии
+│   └── russian_animals.json     # База русских названий животных
 ├── ⚙️ config/
-│ ├── regions_keys.json # Регистры регионов
-│ └── coordinates_regions.json # Координаты регионов
+│   ├── regions_keys.json        # Регистры регионов
+│   └── coordinates_regions.json # Координаты регионов
 ├── 🔧 utils/
-│ ├── data_manager.py # Менеджер данных и кэширования
-│ ├── taxonomy_translator.py # Переводчик таксономии
-│ └── russian_animals_db.py # База данных русских животных
+│   ├── data_manager.py          # Менеджер данных и кэширования
+│   ├── taxonomy_translator.py   # Переводчик таксономии
+│   └── russian_animals_db.py    # База данных русских животных
 ├── 📄 requirements.txt
 ├── 📖 README.md
-├── main.py # Основной скрипт (интерактивный режим)
-└── biodiversity_ml.py # ML анализ и визуализация
+├── main.py                      # Основной скрипт (интерактивный режим)
+└── biodiversity_ml.py           # ML анализ и визуализация
+```
 
 
 ## 🚀 Быстрый старт
