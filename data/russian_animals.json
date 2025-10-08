@@ -1,0 +1,288 @@
+{
+  "млекопитающие": [
+    {
+      "scientific_name": "Ursus arctos",
+      "common_name": "Бурый медведь",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Canis lupus",
+      "common_name": "Волк",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Vulpes vulpes",
+      "common_name": "Обыкновенная лисица",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Lepus timidus",
+      "common_name": "Заяц-беляк",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Sciurus vulgaris",
+      "common_name": "Обыкновенная белка",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Alces alces",
+      "common_name": "Лось",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Capreolus pygargus",
+      "common_name": "Сибирская косуля",
+      "regions": [
+        "Сибирь",
+        "Дальний Восток"
+      ]
+    },
+    {
+      "scientific_name": "Cervus elaphus",
+      "common_name": "Благородный олень",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Lynx lynx",
+      "common_name": "Обыкновенная рысь",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Martes zibellina",
+      "common_name": "Соболь",
+      "regions": [
+        "Сибирь",
+        "Дальний Восток"
+      ]
+    },
+    {
+      "scientific_name": "Mustela erminea",
+      "common_name": "Горностай",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Meles meles",
+      "common_name": "Барсук",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Castor fiber",
+      "common_name": "Обыкновенный бобр",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Sus scrofa",
+      "common_name": "Кабан",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Erinaceus europaeus",
+      "common_name": "Обыкновенный ёж",
+      "regions": [
+        "Европейская часть"
+      ]
+    },
+    {
+      "scientific_name": "Lutra lutra",
+      "common_name": "Речная выдра",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Gulo gulo",
+      "common_name": "Росомаха",
+      "regions": [
+        "Сибирь",
+        "Дальний Восток"
+      ]
+    }
+  ],
+  "птицы": [
+    {
+      "scientific_name": "Tetrao urogallus",
+      "common_name": "Глухарь",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Lyrurus tetrix",
+      "common_name": "Тетерев",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Lagopus lagopus",
+      "common_name": "Белая куропатка",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Aquila chrysaetos",
+      "common_name": "Беркут",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Buteo buteo",
+      "common_name": "Обыкновенный канюк",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Strix uralensis",
+      "common_name": "Длиннохвостая неясыть",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Corvus corax",
+      "common_name": "Ворон",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Pica pica",
+      "common_name": "Сорока",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Garrulus glandarius",
+      "common_name": "Сойка",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Parus major",
+      "common_name": "Большая синица",
+      "regions": [
+        "все"
+      ]
+    }
+  ],
+  "рептилии": [
+    {
+      "scientific_name": "Lacerta agilis",
+      "common_name": "Прыткая ящерица",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Natrix natrix",
+      "common_name": "Обыкновенный уж",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Vipera berus",
+      "common_name": "Обыкновенная гадюка",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Anguis fragilis",
+      "common_name": "Ломкая веретеница",
+      "regions": [
+        "Европейская часть"
+      ]
+    }
+  ],
+  "амфибии": [
+    {
+      "scientific_name": "Rana temporaria",
+      "common_name": "Травяная лягушка",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Bufo bufo",
+      "common_name": "Серая жаба",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Triturus cristatus",
+      "common_name": "Гребенчатый тритон",
+      "regions": [
+        "Европейская часть"
+      ]
+    },
+    {
+      "scientific_name": "Bombina bombina",
+      "common_name": "Краснобрюхая жерлянка",
+      "regions": [
+        "Европейская часть"
+      ]
+    }
+  ],
+  "рыбы": [
+    {
+      "scientific_name": "Esox lucius",
+      "common_name": "Обыкновенная щука",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Perca fluviatilis",
+      "common_name": "Речной окунь",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Cyprinus carpio",
+      "common_name": "Сазан",
+      "regions": [
+        "все"
+      ]
+    },
+    {
+      "scientific_name": "Carassius carassius",
+      "common_name": "Золотой карась",
+      "regions": [
+        "все"
+      ]
+    }
+  ]
+}

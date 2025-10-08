@@ -8758,5 +8758,273 @@
   "species_Leocottus kesslerii": {
     "translation": "Leocottus kesslerii",
     "timestamp": 1759463688.922528
+  },
+  "genus_Neomys": {
+    "translation": "Neomys",
+    "timestamp": 1759804989.924228
+  },
+  "species_Neomys fodiens": {
+    "translation": "Neomys fodiens",
+    "timestamp": 1759804991.192146
+  },
+  "species_Talpa altaica": {
+    "translation": "Talpa altaica",
+    "timestamp": 1759804992.472147
+  },
+  "species_Sorex minutus": {
+    "translation": "Sorex minutus",
+    "timestamp": 1759804993.759536
+  },
+  "species_Sorex araneus": {
+    "translation": "Sorex araneus",
+    "timestamp": 1759804995.040906
+  },
+  "species_Sorex minutissimus": {
+    "translation": "Sorex minutissimus",
+    "timestamp": 1759804996.316631
+  },
+  "species_Anthus trivialis": {
+    "translation": "Anthus trivialis",
+    "timestamp": 1759804997.60731
+  },
+  "genus_Spermophilus": {
+    "translation": "Spermophilus",
+    "timestamp": 1759804998.874485
+  },
+  "species_Charadrius leschenaultii": {
+    "translation": "Charadrius leschenaultii",
+    "timestamp": 1759805000.128497
+  },
+  "species_Iduna caligata": {
+    "translation": "Iduna caligata",
+    "timestamp": 1759805001.411033
+  },
+  "species_Lanius excubitor": {
+    "translation": "Lanius excubitor",
+    "timestamp": 1759805002.699896
+  },
+  "species_Turdus atrogularis": {
+    "translation": "Чернозобый дрозд",
+    "timestamp": 1759805003.988476
+  },
+  "species_Linaria flavirostris": {
+    "translation": "Linaria flavirostris",
+    "timestamp": 1759805005.258285
+  },
+  "species_Phylloscopus griseolus": {
+    "translation": "Phylloscopus griseolus",
+    "timestamp": 1759805006.523127
+  },
+  "species_Phoenicurus erythrogastrus": {
+    "translation": "Phoenicurus erythrogastrus",
+    "timestamp": 1759805007.819385
+  },
+  "species_Phoenicurus erythronotus": {
+    "translation": "Phoenicurus erythronotus",
+    "timestamp": 1759805009.103706
+  },
+  "species_Leucosticte nemoricola": {
+    "translation": "Leucosticte nemoricola",
+    "timestamp": 1759805010.35552
+  },
+  "species_Ochotona alpina": {
+    "translation": "Ochotona alpina",
+    "timestamp": 1759805011.680417
+  },
+  "species_Carduelis caniceps": {
+    "translation": "Carduelis caniceps",
+    "timestamp": 1759805012.936885
+  },
+  "species_Bufo bufo": {
+    "translation": "Bufo bufo",
+    "timestamp": 1759805014.248687
+  },
+  "species_Bufotes pewzowi": {
+    "translation": "Bufotes pewzowi",
+    "timestamp": 1759805015.554722
+  },
+  "species_Rana arvalis": {
+    "translation": "Rana arvalis",
+    "timestamp": 1759805016.836269
+  },
+  "species_Acrocephalus dumetorum": {
+    "translation": "Acrocephalus dumetorum",
+    "timestamp": 1759808213.748815
+  },
+  "species_Sylvia borin": {
+    "translation": "Sylvia borin",
+    "timestamp": 1759808215.104698
+  },
+  "species_Muscicapa striata": {
+    "translation": "Muscicapa striata",
+    "timestamp": 1759808216.430385
+  },
+  "species_Oenanthe pleschanka": {
+    "translation": "Oenanthe pleschanka",
+    "timestamp": 1759808217.713333
+  },
+  "species_Phylloscopus trochiloides": {
+    "translation": "Phylloscopus trochiloides",
+    "timestamp": 1759808219.037395
+  },
+  "species_Saxicola rubetra": {
+    "translation": "Saxicola rubetra",
+    "timestamp": 1759808220.337981
+  },
+  "species_Ficedula hypoleuca": {
+    "translation": "Ficedula hypoleuca",
+    "timestamp": 1759808221.646547
+  },
+  "species_Oriolus oriolus": {
+    "translation": "Oriolus oriolus",
+    "timestamp": 1759808222.956665
+  },
+  "species_Sylvia nisoria": {
+    "translation": "Sylvia nisoria",
+    "timestamp": 1759808224.251127
+  },
+  "family_Panuridae": {
+    "translation": "Panuridae",
+    "timestamp": 1759808225.562819
+  },
+  "genus_Panurus": {
+    "translation": "Panurus",
+    "timestamp": 1759808226.878079
+  },
+  "species_Panurus biarmicus": {
+    "translation": "Panurus biarmicus",
+    "timestamp": 1759808228.181395
+  },
+  "species_Branta ruficollis": {
+    "translation": "Branta ruficollis",
+    "timestamp": 1759808229.488187
+  },
+  "species_Larus fuscus": {
+    "translation": "Larus fuscus",
+    "timestamp": 1759808230.805023
+  },
+  "family_Salamandridae": {
+    "translation": "Salamandridae",
+    "timestamp": 1759808232.10378
+  },
+  "genus_Lissotriton": {
+    "translation": "Lissotriton",
+    "timestamp": 1759808233.414141
+  },
+  "species_Lissotriton vulgaris": {
+    "translation": "Lissotriton vulgaris",
+    "timestamp": 1759808234.717213
+  },
+  "species_Luscinia luscinia": {
+    "translation": "Luscinia luscinia",
+    "timestamp": 1759808236.031141
+  },
+  "species_Acrocephalus agricola": {
+    "translation": "Acrocephalus agricola",
+    "timestamp": 1759808237.352395
+  },
+  "species_Calidris minuta": {
+    "translation": "Calidris minuta",
+    "timestamp": 1759808238.661962
+  },
+  "genus_Crex": {
+    "translation": "Crex",
+    "timestamp": 1759808239.938449
+  },
+  "species_Crex crex": {
+    "translation": "Crex crex",
+    "timestamp": 1759808241.235759
+  },
+  "species_Loxia curvirostra": {
+    "translation": "Loxia curvirostra",
+    "timestamp": 1759808242.543366
+  },
+  "genus_Hieraaetus": {
+    "translation": "Hieraaetus",
+    "timestamp": 1759808243.83634
+  },
+  "species_Hieraaetus pennatus": {
+    "translation": "Hieraaetus pennatus",
+    "timestamp": 1759808245.158241
+  },
+  "species_Numenius arquata": {
+    "translation": "Numenius arquata",
+    "timestamp": 1759808246.461878
+  },
+  "species_Coturnix coturnix": {
+    "translation": "Coturnix coturnix",
+    "timestamp": 1759808247.753502
+  },
+  "species_Acrocephalus schoenobaenus": {
+    "translation": "Acrocephalus schoenobaenus",
+    "timestamp": 1759808249.054602
+  },
+  "species_Circus macrourus": {
+    "translation": "Circus macrourus",
+    "timestamp": 1759808250.330964
+  },
+  "species_Milvus milvus": {
+    "translation": "Milvus milvus",
+    "timestamp": 1759808251.606882
+  },
+  "species_Columba oenas": {
+    "translation": "Columba oenas",
+    "timestamp": 1759808252.910246
+  },
+  "species_Emberiza hortulana": {
+    "translation": "Emberiza hortulana",
+    "timestamp": 1759808254.206977
+  },
+  "species_Streptopelia turtur": {
+    "translation": "Streptopelia turtur",
+    "timestamp": 1759808255.536997
+  },
+  "species_Turdus iliacus": {
+    "translation": "Turdus iliacus",
+    "timestamp": 1759808256.841712
+  },
+  "species_Anthus campestris": {
+    "translation": "Anthus campestris",
+    "timestamp": 1759808258.151409
+  },
+  "species_Circus pygargus": {
+    "translation": "Circus pygargus",
+    "timestamp": 1759808259.452789
+  },
+  "species_Pernis apivorus": {
+    "translation": "Pernis apivorus",
+    "timestamp": 1759808260.775964
+  },
+  "species_Phylloscopus sibillatrix": {
+    "translation": "Phylloscopus sibillatrix",
+    "timestamp": 1759808262.090484
+  },
+  "genus_Montifringilla": {
+    "translation": "Montifringilla",
+    "timestamp": 1759808263.409515
+  },
+  "species_Montifringilla nivalis": {
+    "translation": "Montifringilla nivalis",
+    "timestamp": 1759808264.724395
+  },
+  "genus_Lasiopodomys": {
+    "translation": "Lasiopodomys",
+    "timestamp": 1759808266.015664
+  },
+  "species_Lasiopodomys gregalis": {
+    "translation": "Lasiopodomys gregalis",
+    "timestamp": 1759808267.308577
+  },
+  "family_Spalacidae": {
+    "translation": "Spalacidae",
+    "timestamp": 1759808268.622987
+  },
+  "genus_Myospalax": {
+    "translation": "Myospalax",
+    "timestamp": 1759808269.932579
+  },
+  "species_Myospalax myospalax": {
+    "translation": "Myospalax myospalax",
+    "timestamp": 1759808271.210513
   }
 }

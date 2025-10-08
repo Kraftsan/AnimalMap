@@ -10,76 +10,16 @@
       "data_file": "krasnodar.json",
       "last_updated": "2025-10-02T12:46:58.128443"
     },
-    "Москва": {
-      "name_ru": "Москва",
-      "data_file": "москва.json",
-      "last_updated": "2025-10-02T14:37:06.041806"
+    "altai": {
+      "name_ru": "Altai",
+      "data_file": "altai.json",
+      "last_updated": "2025-10-07T11:43:36.858470"
     },
-    "Краснодарский край": {
-      "name_ru": "Краснодарский край",
-      "data_file": "краснодарский край.json",
-      "last_updated": "2025-10-02T14:38:02.661047"
-    },
-    "Нижегородская область": {
-      "name_ru": "Нижегородская область",
-      "data_file": "нижегородская область.json",
-      "last_updated": "2025-10-02T14:38:37.420515"
-    },
-    "Татарстан": {
-      "name_ru": "Татарстан",
-      "data_file": "татарстан.json",
-      "last_updated": "2025-10-02T14:39:39.758933"
-    },
-    "Bryansk": {
-      "name_ru": "Bryansk",
-      "data_file": "bryansk.json",
-      "last_updated": "2025-10-02T14:48:35.609793"
-    },
-    "Crimea": {
-      "name_ru": "Crimea",
-      "data_file": "crimea.json",
-      "last_updated": "2025-10-02T15:30:42.342197"
-    },
-    "Sakhalin": {
-      "name_ru": "Sakhalin",
-      "data_file": "sakhalin.json",
-      "last_updated": "2025-10-03T08:16:40.736227"
-    },
-    "Zabaykalsky Krai": {
-      "name_ru": "Забайкальский край",
-      "data_file": "zabaykalsky krai.json",
-      "last_updated": "2025-10-03T08:59:31.946160"
-    },
-    "Chechnya": {
-      "name_ru": "Chechnya",
-      "data_file": "chechnya.json",
-      "last_updated": "2025-10-03T09:55:30.082889"
-    },
-    "Yaroslavl": {
-      "name_ru": "Yaroslavl",
-      "data_file": "yaroslavl.json",
-      "last_updated": "2025-10-03T10:11:09.663421"
-    },
-    "Vladimir": {
-      "name_ru": "Vladimir",
-      "data_file": "vladimir.json",
-      "last_updated": "2025-10-03T10:19:47.953947"
-    },
-    "Udmurtia": {
-      "name_ru": "Udmurtia",
-      "data_file": "udmurtia.json",
-      "last_updated": "2025-10-03T10:30:41.354614"
-    },
-    "amur": {
-      "name_ru": "Amur",
-      "data_file": "amur.json",
-      "last_updated": "2025-10-03T11:21:48.128470"
-    },
-    "zabaykalskykrai": {
-      "name_ru": "Zabaykalsky",
-      "data_file": "zabaykalskykrai.json",
-      "last_updated": "2025-10-03T12:54:48.988098"
+    "altaikrai": {
+      "name_ru": "Altai Krai",
+      "data_file": "altaikrai.json",
+      "last_updated": "2025-10-07T12:37:51.323018"
     }
   },
-  "last_updated": "2025-10-03T12:54:48.988103"
+  "last_updated": "2025-10-07T12:37:51.323024"
 }
